@@ -1,0 +1,88 @@
+probe pool=400 legal edits=373 (tier1=310)
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 14:08:54.089000 28833 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 10059.26it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+lm_head.bias                    | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+pooler.dense.weight             | MISSING    | 
+pooler.dense.bias               | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  camembert done
+Loading weights:   0%|          | 0/196 [00:00<?, ?it/s]Loading weights: 100%|██████████| 196/196 [00:00<00:00, 9874.52it/s]
+[1mFlaubertModel LOAD REPORT[0m from: flaubert/flaubert_base_cased
+Key                  | Status     |  | 
+---------------------+------------+--+-
+pred_layer.proj.bias | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+  flaubert done
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 10567.67it/s]
+[1mBertModel LOAD REPORT[0m from: sentence-transformers/LaBSE
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+  LaBSE done
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 9088.37it/s]
+[1mCamembertModel LOAD REPORT[0m from: dangvantuan/sentence-camembert-base
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+  Sentence-CamemBERT done
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8326.27it/s]
+[1mXLMRobertaModel LOAD REPORT[0m from: sentence-transformers/paraphrase-multilingual-mpnet-base-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+  Para-mUSE-mpnet done
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8621.79it/s]
+[1mXLMRobertaModel LOAD REPORT[0m from: intfloat/multilingual-e5-base
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Loading weights:   0%|          | 0/202 [00:00<?, ?it/s]Loading weights: 100%|██████████| 202/202 [00:00<00:00, 9513.46it/s]
+[1mDebertaV2ForSequenceClassification LOAD REPORT[0m from: MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7
+Key                             | Status     |  | 
+--------------------------------+------------+--+-
+deberta.embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+  nli done
+
+metric                            ident   edit edit_t1  unrel | discrim% margin_frac
+--------------------------------------------------------------------------------------------
+NLI-bidirectional (min)           0.784  0.265   0.187  0.010 |    93.3%       0.670
+NLI-bwd (no omission)             0.784  0.432   0.364  0.042 |    77.2%       0.473
+NLI-fwd (no hallucination)        0.784  0.469   0.426  0.043 |    77.7%       0.424
+surface: token Jaccard            1.000  0.928   0.926  0.089 |    99.2%       0.079
+LaBSE                             1.000  0.972   0.970  0.292 |   100.0%       0.039
+BERTScore-FlauBERT                1.000  0.979   0.978  0.393 |   100.0%       0.035
+mE5-base                          1.000  0.975   0.972  0.266 |   100.0%       0.034
+Para-mUSE-mpnet                   1.000  0.981   0.977  0.312 |   100.0%       0.028
+Sentence-CamemBERT                1.000  0.983   0.982  0.316 |   100.0%       0.024
+BERTScore-CamemBERTv2-Recall      1.000  0.983   0.982  0.240 |   100.0%       0.023
+BERTScore-CamemBERTv2             1.000  0.982   0.982  0.193 |   100.0%       0.022
+surface: -|len diff|              1.000  0.997   0.996  0.718 |    11.3%       0.011

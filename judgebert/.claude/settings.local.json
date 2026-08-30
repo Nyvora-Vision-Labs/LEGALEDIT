@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -)",
+      "Bash(python3 exp1_ceiling.py)",
+      "Bash(METRICS_DEVICE=cpu python3 exp2_baselines.py)",
+      "Bash(METRICS_DEVICE=cpu python3 exp4_challenge.py)"
+    ]
+  }
+}

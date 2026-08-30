@@ -1,0 +1,1956 @@
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 19:30:28.007000 54124 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9995.50it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+lm_head.bias                    | UNEXPECTED | 
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+pooler.dense.weight             | MISSING    | 
+pooler.dense.bias               | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+=== grid started Sat Aug 29 19:46:32 EDT 2026 tag='_grouped' grouped='1' ===
+--- JudgeBERT (repro) seed=43 19:46:33
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 19:46:40.626000 59723 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 4455.10it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+pooler.dense.weight             | MISSING    | 
+pooler.dense.bias               | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e7355720>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e75efd90>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x526b92020>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e6fdc9d0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e8990080>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x3382e20c0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x33c7ea530>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e6e30bd0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e72f2b80>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x34b4cb9b0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x335860b60>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e71b8360>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x526bb1d60>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e9207b20>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x33838cb50>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x33a1f0030>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e98b19c0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e75bc770>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e75a7960>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x34d028300>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e75a7960>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e75a7960>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x3382e20c0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x3382e20c0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e7e87000>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x526b51960>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x526b51960>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x35cefa2e0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x335838b20>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e75a7960>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e8b252f0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e8b272f0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e75a7960>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e7f78a40>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e6c7b5d0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e733b0e0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x15800b410>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x35cefa2e0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x3349727b0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e75a7960>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x354598120>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e92d03a0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e9258200>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x3349727b0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e9886150>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x354598120>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x1580c7d70>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x526b77180>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e799b860>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e795a130>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x3382e20c0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x3382e20c0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x1593158c0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x1580581e0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x1580caf50>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e9265830>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e75c3330>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x3349727b0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x10525d2c0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e9276420>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e7eaf710>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e7eaf710>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e9265830>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x3349727b0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e750b3f0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e9265830>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x105253550>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x526b78f90>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e72faf00>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x158077110>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e729f880>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e921ae10>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e75a7960>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e75a7960>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x1580d9ad0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e750b3f0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e98fca30>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e9748b20>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e754d910>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e9279a60>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e750b3f0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e92f5ed0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e9279a60>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x1580759b0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x158014660>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e72f7c10>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e754d910>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e7ed6230>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x526b77180>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x526b77180>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e7529830>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x104befe60>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x526a05020>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e7529830>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e729fc10>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x33604e940>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x1580f3ea0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x1580e3770>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e92faa40>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x104bf2c60>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e79c6e80>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e8bfe8e0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e753d1e0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e729f880>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x33d0e6e80>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x339753eb0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e757e5d0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x159125250>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e758cfd0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e8be1a90>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x526b96e50>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x35e417230>
+    label = <none> 
+    device = <AGXG15SDevice: 0x12c14fa00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x17701a000>
+        label = <none> 
+        device = <AGXG15SDevice: 0x12c14fa00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x33499f850>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x30ed326b0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x12c14fa00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x17701a000>
+        label = <none> 
+        device = <AGXG15SDevice: 0x12c14fa00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+Error: command buffer exited with error status.
+	The Metal Performance Shaders operations encoded on it may not have completed.
+	Error: 
+	(null)
+	Internal Error (00000001:Internal Error)
+	<AGXG15XFamilyCommandBuffer: 0x4e73bb6d0>
+    label = <none> 
+    device = <AGXG15SDevice: 0x168c9ea00>
+        name = Apple M3 Pro 
+    commandQueue = <AGXG15XFamilyCommandQueue: 0x16cf12600>
+        label = <none> 
+        device = <AGXG15SDevice: 0x168c9ea00>
+            name = Apple M3 Pro 
+    retainedReferences = 1
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/numpy/lib/function_base.py:2897: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/numpy/lib/function_base.py:2898: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+/Users/gauurab/Documents/Projects/arxiv_extra_Step/judgebert/work/src/stats_utils.py:13: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  return float(sps.spearmanr(a, b).statistic)
+=== grid started Sat Aug 29 20:27:16 EDT 2026 tag='_grouped' grouped='1' ===
+--- JudgeBERT (repro) seed=42 20:27:16
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 20:27:20.580000 7229 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9810.71it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+lm_head.dense.weight            | UNEXPECTED | 
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+pooler.dense.bias               | MISSING    | 
+pooler.dense.weight             | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT (repro)] seed=42 ep=59 r=0.606 rho=0.412 RMSE=2.40 over=29% | id=0.00 un=0.00 edit_FA=0.00 (2210s)
+--- JudgeBERT (repro) seed=43 21:04:26
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 21:04:30.420000 9256 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 10498.28it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+pooler.dense.weight             | MISSING    | 
+pooler.dense.bias               | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT (repro)] seed=43 ep=60 r=0.394 rho=0.142 RMSE=2.55 over=22% | id=0.00 un=0.00 edit_FA=0.00 (536s)
+--- JudgeBERT (repro) seed=44 21:13:42
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 21:13:46.384000 10984 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 10180.98it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+lm_head.dense.bias              | UNEXPECTED | 
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+pooler.dense.weight             | MISSING    | 
+pooler.dense.bias               | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT (repro)] seed=44 ep=60 r=0.216 rho=0.263 RMSE=2.58 over=17% | id=0.00 un=0.00 edit_FA=0.00 (532s)
+--- JudgeBERT (repro) seed=45 21:22:52
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 21:22:56.813000 12598 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 12139.54it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+lm_head.bias                    | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+roberta.embeddings.position_ids | UNEXPECTED | 
+pooler.dense.weight             | MISSING    | 
+pooler.dense.bias               | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT (repro)] seed=45 ep=39 r=0.462 rho=0.367 RMSE=2.72 over=19% | id=0.00 un=0.00 edit_FA=0.00 (365s)
+--- JudgeBERT (repro) seed=46 21:29:16
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 21:29:20.771000 15636 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 11740.40it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+lm_head.dense.weight            | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+pooler.dense.bias               | MISSING    | 
+pooler.dense.weight             | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT (repro)] seed=46 ep=60 r=0.590 rho=0.223 RMSE=2.22 over=33% | id=0.00 un=0.00 edit_FA=0.00 (524s)
+--- JudgeBERT-DA (repro) seed=42 21:38:20
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 21:38:24.410000 19008 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 10108.24it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+lm_head.layer_norm.weight       | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+pooler.dense.bias               | MISSING    | 
+pooler.dense.weight             | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT-DA (repro)] seed=42 ep=23 r=0.168 rho=0.476 RMSE=2.40 over=40% | id=0.00 un=1.00 edit_FA=0.00 (589s)
+--- JudgeBERT-DA (repro) seed=43 21:48:29
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 21:48:34.032000 22740 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 12539.69it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+lm_head.dense.weight            | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+pooler.dense.bias               | MISSING    | 
+pooler.dense.weight             | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT-DA (repro)] seed=43 ep=22 r=0.486 rho=0.467 RMSE=2.61 over=24% | id=0.00 un=1.00 edit_FA=0.46 (521s)
+--- JudgeBERT-DA (repro) seed=44 21:57:29
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 21:57:34.028000 26076 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 11143.33it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+lm_head.layer_norm.weight       | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+pooler.dense.weight             | MISSING    | 
+pooler.dense.bias               | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT-DA (repro)] seed=44 ep=16 r=0.302 rho=0.085 RMSE=2.45 over=24% | id=0.00 un=0.99 edit_FA=0.00 (371s)
+--- JudgeBERT-DA (repro) seed=45 22:03:59
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 22:04:03.205000 28390 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 10635.85it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+pooler.dense.weight             | MISSING    | 
+pooler.dense.bias               | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT-DA (repro)] seed=45 ep=16 r=0.152 rho=-0.358 RMSE=2.44 over=36% | id=0.00 un=1.00 edit_FA=0.00 (363s)
+--- JudgeBERT-DA (repro) seed=46 22:10:21
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 22:10:25.402000 30635 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9767.46it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+lm_head.layer_norm.bias         | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+pooler.dense.weight             | MISSING    | 
+pooler.dense.bias               | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT-DA (repro)] seed=46 ep=39 r=-0.157 rho=0.028 RMSE=3.27 over=42% | id=0.00 un=1.00 edit_FA=0.00 (883s)
+--- JudgeBERT-DA+LegalEdit seed=42 22:25:23
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 22:25:27.720000 36047 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 11401.18it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+lm_head.layer_norm.bias         | UNEXPECTED | 
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+pooler.dense.weight             | MISSING    | 
+pooler.dense.bias               | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT-DA+LegalEdit] seed=42 ep=18 r=-0.010 rho=0.451 RMSE=2.64 over=34% | id=0.00 un=0.00 edit_FA=0.00 (559s)
+--- JudgeBERT-DA+LegalEdit seed=43 22:35:03
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 22:35:07.176000 39491 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 10484.70it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+pooler.dense.bias               | MISSING    | 
+pooler.dense.weight             | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT-DA+LegalEdit] seed=43 ep=19 r=0.279 rho=0.386 RMSE=3.13 over=20% | id=0.00 un=1.00 edit_FA=0.00 (582s)
+--- JudgeBERT-DA+LegalEdit seed=44 22:45:04
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 22:45:08.269000 43126 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 11185.42it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+pooler.dense.weight             | MISSING    | 
+pooler.dense.bias               | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT-DA+LegalEdit] seed=44 ep=22 r=0.253 rho=0.339 RMSE=2.23 over=30% | id=0.00 un=0.44 edit_FA=0.00 (670s)
+--- JudgeBERT-DA+LegalEdit seed=45 22:56:33
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 22:56:37.309000 47163 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 11079.23it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+lm_head.bias                    | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+roberta.embeddings.position_ids | UNEXPECTED | 
+lm_head.dense.bias              | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+pooler.dense.weight             | MISSING    | 
+pooler.dense.bias               | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT-DA+LegalEdit] seed=45 ep=20 r=0.239 rho=0.488 RMSE=2.34 over=39% | id=0.00 un=0.99 edit_FA=0.00 (600s)
+--- JudgeBERT-DA+LegalEdit seed=46 23:06:51
+Skipping import of cpp extensions due to incompatible torch version 2.9.1 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+W0829 23:06:55.930000 50850 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 12418.14it/s]
+[1mRobertaModel LOAD REPORT[0m from: almanach/camembertv2-base
+Key                             | Status     | 
+--------------------------------+------------+-
+lm_head.dense.bias              | UNEXPECTED | 
+lm_head.layer_norm.weight       | UNEXPECTED | 
+lm_head.layer_norm.bias         | UNEXPECTED | 
+lm_head.dense.weight            | UNEXPECTED | 
+lm_head.bias                    | UNEXPECTED | 
+roberta.embeddings.position_ids | UNEXPECTED | 
+pooler.dense.weight             | MISSING    | 
+pooler.dense.bias               | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [JudgeBERT-DA+LegalEdit] seed=46 ep=18 r=-0.018 rho=-0.071 RMSE=2.93 over=17% | id=0.00 un=0.00 edit_FA=0.00 (567s)
+=== grid finished Sat Aug 29 23:16:37 EDT 2026 ===
