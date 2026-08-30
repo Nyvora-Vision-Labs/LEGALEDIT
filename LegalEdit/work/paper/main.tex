@@ -47,46 +47,32 @@ Preservation Metrics}
 
 \begin{abstract}
 \noindent
-An automatic metric for \emph{legal} meaning preservation is supposed to answer
-a practical question: does this simplified clause still say what the original
-said? We ask what evidence would justify believing such an answer, and argue
-that the evidence currently collected cannot. The two automated checks in
-standard use, which require that an identical pair score at the top of the
-range and an unrelated pair at the bottom, move lexical overlap and legal force
-in the same direction at the same time, so that any monotone function of token
-overlap satisfies both; and a correlation with averaged human ratings is
-informative only to the extent that the average is reliable and the competing
-metrics were scored on a common scale. We propose a four-part validation protocol that closes each
-gap: a measured human ceiling, calibration of every candidate to the human scale
-under identical supervision, a trivial surface-feature control, and a
-\emph{dissociation} diagnostic that holds surface form fixed and moves the law.
-The diagnostic is the central instrument and we release it as
-\textsc{LegalEdit}: \numedits\ minimal perturbations of Quebec statutory French
-(\emph{doit}\,/\,\emph{peut}, \emph{et}\,/\,\emph{ou},
-\emph{assur\'e}\,/\,\emph{assureur}, dropped negations, amounts multiplied by
-ten) that reverse legal force while preserving \meanjaccard\ of the tokens.
-Instantiating the protocol on \textsc{FrJudge} and \textsc{JudgeBERT}
-\citep{beauchemin2025judgebert}, currently the only corpus and supervised metric
-for this construct, changes four conclusions. The corpus is more reliable than
-its published coefficient suggests, because a \emph{nominal} $\alpha$ was
-applied to a ten-point \emph{ordinal} scale; the ordinal value is $\alphaOrd$.
-The reported headline correlation sits \emph{above} the human ceiling: one
-annotator predicts the consensus of the other four at $r=\ceilR$ and the
-best-agreeing pair reaches $r=\bestPairR$, against $r=0.74$ for the metric.
-Under identical supervision a ridge regression over ten \emph{surface} features
-reaches $r=\surfR$, level with that ceiling and above every neural baseline.
-And \textsc{LegalEdit} splits the field in two: every similarity-based scorer
-spends only $\simMarginLo$--$\bertMargin$ of its identical-to-unrelated range on
-an edit that reverses the law, and $\partyMargin$ on the edits that swap
-\emph{l'assur\'e} for \emph{l'assureur}, while bidirectional NLI entailment
-spends $\maxMargin$ and ranks $93\%$ of items correctly. Crucially the two
-orderings come apart: the best-correlating signal on the corpus is the worst on
-the diagnostic, so a metric chosen by correlation alone is chosen wrongly.
+An automatic metric for legal meaning preservation should answer a practical
+question: does a simplified clause say what the original said? We ask what
+evidence would justify that answer, and argue current evidence cannot. The
+standard automated checks, requiring an identical pair to score highest and an
+unrelated pair lowest, move lexical overlap and legal force together, so any
+monotone function of token overlap satisfies both; correlation with averaged
+human ratings requires a reliable average and a common scale across metrics. We
+propose a four-part protocol: a measured human ceiling, calibration to the
+human scale under identical supervision, a trivial surface-feature control, and
+a dissociation diagnostic holding surface form fixed while moving the law. We
+release the diagnostic as \textsc{LegalEdit}: \numedits\ minimal perturbations
+of Quebec statutory French (modal, connective, party, negation, magnitude)
+reversing legal force while preserving \meanjaccard\ of the tokens. Applying
+the protocol to \textsc{FrJudge} and \textsc{JudgeBERT}
+\citep{beauchemin2025judgebert}, the only corpus and metric for this construct,
+changes four conclusions: ordinal reliability ($\alphaOrd$) exceeds the
+published nominal $\alpha$; the reported correlation sits above the human
+ceiling ($r=\ceilR$ vs.\ $r=0.74$); a ridge regression over surface features
+matches that ceiling ($r=\surfR$); and \textsc{LegalEdit} splits the field, as
+similarity scorers spend only $\simMarginLo$--$\bertMargin$ of their range on
+law-reversing edits, NLI entailment $\maxMargin$. The best-correlating signal
+is the worst on the diagnostic, so correlation alone chooses wrongly.
 Retraining under an evaluation that never scores a model on its own
-augmentation reverses a further result: the augmentation reported to raise $r$
-from $0.74$ to $0.97$ instead costs more than half of it, on every seed.
-Distributional and quantile objectives, by contrast, buy stability and risk
-asymmetry rather than accuracy. Code, corrected splits, and the diagnostic are released.
+augmentation reverses a further result: gains reported from $r=0.74$ to $0.97$
+instead cost over half, every seed. Code, splits, and the diagnostic are
+released.
 \end{abstract}
 
 \section{Introduction}
