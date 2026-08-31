@@ -1,7 +1,11 @@
-# Above the Ceiling: re-evaluation of JUDGEBERT / FrJUDGE
+# LegalEdit: a dissociation diagnostic for legal meaning preservation metrics
 
-Code, data pipeline, and paper for a reproduction and extension of
-[JUDGEBERT (Beauchemin et al., EMNLP 2025)](https://aclanthology.org/2025.emnlp-main.5/).
+Code, data pipeline, and paper for **LegalEdit**, a challenge set that holds
+surface form fixed while reversing the legal force of a statutory clause, and
+for the four-part validation protocol built around it. The protocol is
+instantiated on
+[FrJUDGE / JUDGEBERT (Beauchemin et al., EMNLP 2025)](https://aclanthology.org/2025.emnlp-main.5/),
+the only annotated corpus and metric for this construct.
 
 ## Layout
 
@@ -11,7 +15,7 @@ work/
   src/           all experiment code
   results/       JSON results, per-metric score cache, run logs
   paper/         LaTeX source, generated tables/figures, compiled main.pdf
-  artifacts/     corrected README, errata, pseudonymisation script
+  artifacts/     corrected README, errata, re-analysis notes, pseudonymisation script
 ```
 
 ## Reproducing

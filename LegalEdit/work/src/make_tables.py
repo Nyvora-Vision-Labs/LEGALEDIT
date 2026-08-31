@@ -21,7 +21,7 @@ def tab_agreement():
     s = ["\\begin{tabular}{lrrr}", "\\toprule",
          "Dimension & \\multicolumn{2}{c}{Krippendorff's $\\alpha$} & Reported \\\\",
          "\\cmidrule(lr){2-3}",
-         " & nominal & appropriate & \\citep{beauchemin2025judgebert} \\\\", "\\midrule",
+         " & nominal & appropriate & prev. \\\\", "\\midrule",
          f"Simplicity level (nominal) & {fmt(e['alpha_simplicity_nominal'])} & "
          f"{fmt(e['alpha_simplicity_nominal'])} & 0.18 \\\\",
          f"Characterization (nominal) & {fmt(e['alpha_characterization_nominal'])} & "

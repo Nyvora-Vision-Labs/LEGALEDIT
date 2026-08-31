@@ -1,7 +1,9 @@
 # Errata and discrepancies: JUDGEBERT (arXiv:2508.16870v1 / EMNLP 2025 main, pp. 92–118)
 
 Offered as corrigenda for a v2 or journal extension, not as criticism of the
-study's conduct. Items 1–3 affect a reported result; the rest are textual or
+study's conduct, and shared with the authors directly. See `REANALYSIS.md` for
+the four items that change how a reported number should be read; this file holds
+the textual and artefact discrepancies. Items 1–3 affect a reported result; the rest are textual or
 artefact issues. Every item was verified against the paper and the released
 data.
 

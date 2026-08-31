@@ -1,0 +1,1269 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{multirow}
+\usepackage{xcolor}
+% Citation colour matches the blue used in the figures, so links read as part of
+% the design rather than as browser chrome. hyperref must precede natbib for
+% \citep to produce anchors into the bibliography.
+\definecolor{linkblue}{HTML}{1F5FA0}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  citecolor=linkblue,
+  linkcolor=linkblue,
+  urlcolor=linkblue,
+  breaklinks=true,
+  pdftitle={Change the Law, Keep the Words: A Dissociation Protocol for Legal Meaning Preservation Metrics},
+  pdfauthor={Gaurab Baral}
+}
+% Numeric citations: \citep -> [1], \citet -> Author et al. [1].
+% sort&compress turns [3,1,2] into [1-3]; unsrtnat numbers entries in
+% order of first citation, so the markers run 1, 2, 3 through the text.
+\usepackage[numbers,sort&compress]{natbib}
+\bibliographystyle{unsrtnat}
+\usepackage{caption}
+\captionsetup{font=small}
+
+\input{numbers}
+
+\title{\textbf{Change the Law, Keep the Words}\\[2pt]
+\large A Dissociation Protocol for Legal Meaning\\
+Preservation Metrics}
+
+\author{Gaurab Baral\\[2pt]
+\normalsize University of Cincinnati\\[1pt]
+\normalsize \texttt{baralgb@mail.uc.edu}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+An automatic metric for legal meaning preservation should answer a practical
+question: does a simplified clause say what the original said? We ask what
+evidence would justify that answer, and argue current evidence cannot. The
+standard automated checks, requiring an identical pair to score highest and an
+unrelated pair lowest, move lexical overlap and legal force together, so any
+monotone function of token overlap satisfies both; correlation with averaged
+human ratings requires a reliable average and a common scale across metrics. We
+propose a four-part protocol: a measured human ceiling, calibration to the
+human scale under identical supervision, a trivial surface-feature control, and
+a dissociation diagnostic holding surface form fixed while moving the law. We
+release the diagnostic as \textsc{LegalEdit}: \numedits\ minimal perturbations
+of Quebec statutory French (modal, connective, party, negation, magnitude)
+reversing legal force while preserving \meanjaccard\ of the tokens. Applying
+the protocol to \textsc{FrJudge} and \textsc{JudgeBERT}
+\citep{beauchemin2025judgebert}, the only corpus and metric for this construct,
+changes four conclusions: ordinal reliability ($\alphaOrd$) exceeds the
+published nominal $\alpha$; the reported correlation sits above the human
+ceiling ($r=\ceilR$ vs.\ $r=0.74$); a ridge regression over surface features
+matches that ceiling ($r=\surfR$); and \textsc{LegalEdit} splits the field, as
+similarity scorers spend only $\simMarginLo$--$\bertMargin$ of their range on
+law-reversing edits, NLI entailment $\maxMargin$. The best-correlating signal
+is the worst on the diagnostic, so correlation alone chooses wrongly.
+Retraining under an evaluation that never scores a model on its own
+augmentation reverses a further result: gains reported from $r=0.74$ to $0.97$
+instead cost over half, every seed. Code, splits, and the diagnostic are
+released.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+Rewriting a legal text for a lay reader has an unusual failure mode. When a news
+summary drops a qualifier the reader is mildly misinformed; when an insurance
+clause drops a qualifier the reader may be uninsured. The 2024 decision in
+\emph{Moffatt v.\ Air Canada}, which held an airline liable for its chatbot's
+misstatement of its own bereavement-fare policy, established that the gap
+between what a document says and what an automated system says it says is
+legally cognisable and not merely academic.
+
+If simplified legal text is going to be produced automatically, something has to
+check it, and the something will in practice be an automatic metric. That places
+an unusually heavy burden of proof on the metric. It is not enough that its
+scores rise and fall roughly with human ratings on a corpus of naturally
+occurring simplifications. What a practitioner needs to know is narrower and
+harder: does the score move when the legal effect of the clause moves, and does
+it stay put when the wording changes without legal effect? Those two properties
+are what make a number safe to act on, and neither is measured by a correlation
+coefficient.
+
+This paper is about how to measure them. Our starting observation is that the
+validation apparatus the field has converged on cannot, even in principle,
+distinguish a metric that reads law from a metric that counts shared words. Two
+automated checks are in current use \citep{beauchemin2023meaningbert,
+beauchemin2025judgebert}: a sentence paired with itself must receive the maximum
+score, and a sentence paired with an unrelated one must receive the minimum.
+Both are necessary and both are easy to state. But moving from an identical pair
+to an unrelated pair changes lexical overlap and legal meaning \emph{together},
+in the same direction, at the same time. Any monotone function of token overlap
+therefore satisfies both checks by construction, which is exactly why the
+embedding metrics in the literature already pass them. The checks are a test of
+calibration at two endpoints, not a test of what the metric is reading.
+
+The remedy is a \emph{dissociation}: an evaluation item on which the two
+confounded variables are pulled apart, so that legal force changes while surface
+form does not. Consider a clause in which \emph{doit} (must) is replaced by
+\emph{peut} (may). Ninety-odd percent of the tokens are untouched, the sentence
+remains fluent and statutory in register, and an obligation has become a
+permission. A metric that measures legal meaning must drop sharply; a metric
+that measures overlap cannot. This construction is the core methodological
+contribution of the paper, and we build \textsc{LegalEdit}, a set of \numedits\
+such perturbations over Quebec statutory French, to carry it out.
+
+Around that instrument we assemble three further requirements, each of which
+addresses a way that a correlation number can be read for more than it is worth.
+A correlation should be interpreted against a \emph{measured} human ceiling,
+which is free to compute whenever a corpus ships several ratings per item.
+Competing metrics should be compared under \emph{identical supervision}, since
+an unsupervised similarity score and a regressor fitted to the label are not
+otherwise on the same scale. And every comparison should include a
+\emph{trivial-feature control}, because the surface statistics of a
+simplification, above all the degree to which it is shorter, carry more of the
+human label than is usually assumed. Together with the diagnostic these form a
+four-part protocol, set out in \S\ref{sec:protocol}.
+
+To find out whether the protocol changes anything, we instantiate it on the only
+corpus and metric that currently exist for this construct.
+\citet{beauchemin2025judgebert} argue, convincingly in our view, that
+\emph{legal} meaning preservation is not general meaning preservation: in
+ordinary French \emph{automobile} and \emph{v\'ehicule} are near-synonyms, but
+under Quebec's Highway Safety Code an automobile is moved by mechanical force
+and a vehicle by mechanical \emph{or human} force, so every bicycle is a
+counterexample. They contribute \textsc{FrJudge}, 297 clause/simplification
+pairs from Quebec property-insurance forms rated by five law students, and
+\textsc{JudgeBERT}, a CamemBERTv2 regressor reported at $r=0.74$ against the
+mean human rating, rising to $0.97$ with data augmentation, against $0.46$ for
+the strongest baseline. The construct and the corpus are the right foundation,
+and the work below is possible at all only because the raw annotations were
+released. Every component of the protocol changes a conclusion.
+
+\paragraph{The gold standard is weaker, and stronger, than it appears.}
+Reproducing the inter-annotator statistics exactly (our mean pairwise percent
+agreement matches the published $25.96$ to two decimals), we find that the
+reported $\alpha=0.10$ applies a nominal coefficient to an ordinal scale,
+counting a $9$-versus-$10$ disagreement as fully as a $1$-versus-$10$
+disagreement. The coefficient appropriate to the design is $\alphaOrd$
+(\S\ref{sec:agreement}). The disagreement that remains, however, is structural
+rather than random: the five annotators split into a lenient group (means
+$\lenientMean$) and a strict group ($\strictMean$), and on \pctSpreadSix\ of
+pairs their ratings span six points or more. The mean of five such ratings is a
+quantity no annotator asserted.
+
+\paragraph{The reported correlation exceeds the ceiling it should be read against.}
+Because the corpus ships five ratings per item, the ceiling is measurable: a
+held-out annotator predicts the mean of the other four at $r=\ceilR$
+(RMSE $\ceilRmse$), and the best-agreeing \emph{pair} of annotators reaches
+$r=\bestPairR$ (\S\ref{sec:ceiling}). A model reported at $r=0.74$ is therefore
+not better than a human at judging legal meaning; it is better than any human at
+predicting a five-rater average, which is a different and much easier task, and
+one that rewards predicting the middle of a bimodal distribution. We show how to
+report the two claims separately.
+
+\paragraph{Surface features do most of the work.}
+Unsupervised similarity metrics are conventionally scored against a $1$--$10$
+Likert label without ever being fitted to that scale, so their RMSE measures the
+absence of supervision rather than the presence of error. After isotonic
+calibration on the training split the ordering changes substantially, and a
+ridge regression over ten surface features (word-count difference, token
+overlap, numeral overlap) reaches $r=\surfR$, above every neural baseline and
+level with the human ceiling (\S\ref{sec:baselines}). Legal meaning
+preservation, as this corpus operationalises it, is to a large extent length
+preservation.
+
+\paragraph{The diagnostic splits the field in two.}
+Under \textsc{LegalEdit} the similarity metrics collapse: BERTScore places a
+sentence that says the opposite of the original at $0.982$ where the original
+itself sits at $1.000$. Bidirectional NLI entailment retains most of its
+discrimination (\S\ref{sec:results}). The diagnostic is therefore not an
+impossible bar, but one that an existing family clears and another does not.
+Awkwardly for current practice, the family that clears it is precisely the
+family that the identical-pair check would have disqualified.
+
+\paragraph{Contributions.}
+(i) An argument that the sanity checks in current use are jointly satisfiable by
+lexical overlap and therefore cannot certify a legal metric, and a four-part
+validation protocol that repairs this; (ii) \textsc{LegalEdit}, a \numedits-item
+dissociation diagnostic defined by legal effect rather than by linguistic
+category, on which every similarity-based metric fails, bidirectional entailment
+does not, and corpus correlation and legal sensitivity come apart; (iii) the
+first human-ceiling estimate for legal meaning preservation, together with a
+recomputation of the \textsc{FrJudge} annotation statistics from the raw export
+and a correction to its reliability coefficient; (iv) a calibrated baseline
+comparison including trivial surface features, showing how much reported
+headroom is attributable to supervision and to length; (v) a retraining study
+showing that identical/unrelated augmentation, once held out of the evaluation
+set, costs more than half the reported correlation, and that disagreement-aware
+and risk-asymmetric objectives buy stability and calibration rather than
+accuracy; and (vi) a reproducibility and privacy review of the public artefacts.
+
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Evaluating text simplification.}
+Simplification quality is conventionally decomposed into fluency, simplicity and
+meaning preservation, and the metrics borrowed from translation and
+summarisation transfer poorly to the third. \citet{sulem2018bleu} show BLEU
+\citep{papineni2002bleu} does not correlate with meaning preservation once
+sentence splitting is involved, the operation most characteristic of legal
+simplification \citep{garimella2022text}. SARI
+\citep{xu-etal-2016-optimizing} targets simplicity rather than adequacy, and the
+reference corpora it is computed against \citep{alvamanchego2020asset} are
+general-domain. Embedding metrics \citep{zhang2019bertscore,reimers2019sbert}
+capture semantic variability better but, as \citet{cripwell2024document}
+document, score consistently high across \emph{all} alterations, penalising even
+substantial meaning changes too little; \citet{kew2023bless} reach a similar
+conclusion when benchmarking LLM simplifiers. Trained metrics such as LENS
+\citep{maddela2023lens} and MeaningBERT \citep{beauchemin2023meaningbert}
+improve correlation on the corpora they are fitted to.
+\citet{agrawal2024meaning} argue for grounding meaning preservation in reading
+comprehension rather than similarity, and \citet{trienes2024infolossqa}
+characterise simplification errors as recoverable \emph{information loss}, a
+framing close to the omission category that dominates legal error taxonomies.
+
+\paragraph{French and legal resources.}
+French simplification corpora are few and none are legal: Alector, CLEAR
+\citep{grabar2018clear} and WikiLarge-FR \citep{cardon2020wikilargefr} cover
+literacy, medical and encyclopaedic text respectively. Legal NLP resources are
+mostly English and mostly not about simplification: CUAD
+\citep{hendrycks2021cuad} annotates contract clauses for extraction, and
+\citet{garneau2022criminal} work on French criminal-law text without
+simplification annotations. \citet{hagan2023good} proposes criteria a legal AI
+system should be benchmarked against, two of which (that a response covers
+details and exceptions, and that it does not misrepresent the substantive law)
+form the basis of the construct \citet{beauchemin2025judgebert} operationalise
+in \textsc{FrJudge}, the corpus and metric we take as our case study. To our
+knowledge it remains the only annotated resource for legal meaning preservation
+in any language.
+
+\paragraph{Metric robustness and challenge sets.}
+Our diagnostic follows a line of work showing that correlation on naturally
+occurring outputs hides brittleness on targeted perturbations.
+\citet{sai2021perturbation} build perturbation checklists for NLG metrics;
+\citet{anschutz2023negation} show metrics systematically miss negation;
+\citet{chen2023menli} demonstrate that similarity-based metrics are not robust
+to meaning-changing edits and that NLI-based metrics repair much of the gap.
+\textsc{LegalEdit} adapts the method to a domain where the perturbations are not
+linguistic curiosities but the exact operations that decide coverage disputes,
+and where the perturbation inventory is therefore organised by legal effect
+rather than by linguistic category. To our knowledge no prior challenge set
+targets legal force.
+
+\paragraph{Factual consistency and entailment.}
+Adequacy in summarisation is measured with entailment- and QA-based methods:
+SummaC \citep{laban2022summac}, AlignScore \citep{zha2023alignscore},
+QAFactEval \citep{fabbri2022qafacteval}, QuestEval \citep{rebuffel2021questeval},
+building on earlier consistency work \citep{laban2020summary,hayes2007answering}.
+These are English-only, which is why they are absent from the French literature;
+we construct a French analogue by running a multilingual NLI model
+\citep{laurer2024nli,conneau2020xlmr} in both directions, so that failure of
+$o \Rightarrow s$ signals hallucination and failure of $s \Rightarrow o$ signals
+omission. The two directions map onto the two dominant categories of the legal
+error taxonomy, which is why we treat this family as the strongest available
+starting point rather than as one baseline among many.
+
+\paragraph{Annotator disagreement.}
+The assumption that a single gold label exists has been extensively challenged
+\citep{pavlick2019inherent,plank2022problem}. \citet{uma2021learning} survey
+methods that learn from the label distribution rather than its mode, and
+\citet{peterson2019human} show soft labels improve robustness. Legal
+interpretation is a paradigm case: disagreement between competent lawyers is the
+ordinary condition of the field, not annotator error. We accordingly treat the
+five ratings per item as a distribution to be modelled (\S\ref{sec:objectives})
+rather than averaged.
+
+\paragraph{Meta-evaluation methodology.}
+\citet{deutsch2021statistical} show correlation estimates for generation metrics
+carry wide confidence intervals and that apparent metric differences frequently
+fail significance testing; \citet{graham2014williams} give the appropriate test
+for dependent correlations; \citet{card2020power} show NLP comparisons are
+routinely underpowered. Our protocol applies all three as a matter of course.
+
+\section{What Would Validate a Legal Meaning Metric?}
+\label{sec:protocol}
+
+Before running any experiment we set out what we think the evidence should
+consist of. The four requirements below are stated for an arbitrary scorer
+$m(o,s) \in \mathbb{R}$ taking an original clause $o$ and a candidate
+simplification $s$; none of them presuppose a particular architecture, and all
+four are cheap enough that we see no reason for a metric paper to omit them.
+
+\subsection{Requirement 1: a measured ceiling}
+
+A correlation with human judgment means nothing until one knows what correlation
+a human achieves. Where a corpus carries $k \geq 3$ ratings per item, this is
+free: hold out one rater, correlate their ratings against the mean of the
+remaining $k-1$, and average over the held-out position. Two bounds should be
+reported, because they answer different questions. The leave-one-annotator-out
+correlation answers \emph{is the metric as good as an expert?} The
+Spearman--Brown reliability of the $k$-rater mean, and its square root, answer
+\emph{is the metric as good as the aggregate label allows?} A metric can sit
+above the first and below the second without being superhuman at anything,
+because predicting an average is easier than being one of the raters averaged:
+aggregation cancels idiosyncratic variance that no individual can cancel for
+themselves. Reporting one bound and not the other invites exactly the conflation
+we document in \S\ref{sec:ceiling}.
+
+\subsection{Requirement 2: identical supervision}
+
+Comparisons in this literature routinely place an unsupervised cosine similarity
+and a regressor fine-tuned on the label in the same table, normalise the former
+by decimal scaling into the label range, and report RMSE for both. Decimal
+scaling is not calibration: it fixes the range but neither the location nor the
+shape of the distribution. A cosine similarity that occupies $[0.7,1.0]$ maps to
+high scores everywhere and records a large RMSE however well it ranks items. The
+resulting column measures access to supervision, and the companion statistic
+usually reported alongside it, namely the fraction of predictions above the
+human label, follows mechanically from the same asymmetry rather than from any
+difference in judgment.
+
+The repair is to fit a monotone map from each metric's raw score to the human
+scale on the training split only, and to evaluate on the held-out split, so that
+every candidate is compared under the same supervision. We use isotonic
+regression \citep{zadrozny2002transforming}, which cannot improve a metric's
+ranking of items because it is monotone; it removes the scale artefact and
+nothing else. Rank statistics ($\rho$) and Pearson $r$ are unaffected for the
+unsupervised metrics, which is a useful check that the map is doing only what it
+is supposed to.
+
+\subsection{Requirement 3: a trivial-feature control}
+
+Simplification changes surface statistics in systematic ways, and the most
+systematic of them is length: LLM simplifications are usually shorter, and the
+dominant annotated error category in legal simplification is omission. A rubric
+that deducts score once per identified error will therefore produce a label
+partly predictable from how many words disappeared, with no representation of
+legal force involved. Any comparison that omits a length control will attribute
+to a neural metric what belongs to that confound. We therefore require a
+supervised baseline over surface features alone (word counts, their difference,
+token overlap and numeral overlap), fitted under exactly the protocol of
+Requirement 2 and reported in the same table as the neural metrics.
+
+\subsection{Requirement 4: dissociation}
+
+The three requirements above discipline the corpus-correlation evidence. They do
+not, and cannot, establish what a metric is reading, because on naturally
+occurring simplification pairs surface form and legal force vary together. This
+is the same confound that makes the identical/unrelated checks uninformative,
+and it needs the same remedy: an evaluation set on which the two are pulled
+apart by construction.
+
+Formally, let $s'$ be a perturbation of $s$ with token Jaccard
+$J(s,s') \approx 1$ and legal force $L(s') \neq L(s)$, and let $u$ be an
+unrelated sentence of the same register. We report the \emph{margin fraction}
+\[
+\text{margin} \;=\; \frac{\overline{m(s,s)} - \overline{m(s,s')}}
+                          {\overline{m(s,s)} - \overline{m(s,u)}},
+\]
+the share of the metric's own identical-to-unrelated dynamic range that it
+spends on a legally decisive edit. The normalisation matters: it makes the
+statistic comparable across metrics with incomparable raw scales, and it charges
+each metric against the range it actually has rather than against a nominal
+$[0,1]$. A metric that treats the flipped sentence as it treats an unrelated one
+scores $1$; a pure overlap function scores near $0$.
+
+Two properties of this statistic are worth stating in advance. It is not the
+rate at which a metric ranks $(s,s)$ above $(s,s')$, and the rate is much the
+weaker quantity: a metric can rank correctly on every item while moving by a
+thousandth of its range, which is a ranking that carries no decision. And the
+margin is not redundant with corpus correlation. Whether the two agree is an
+empirical question, and \S\ref{sec:results} reports that on the corpus at hand
+they do not.
+
+\subsection{Instantiation}
+
+The remainder of the paper carries out the protocol. \S\ref{sec:legaledit}
+constructs the diagnostic; \S\ref{sec:corpus} and \S\ref{sec:ceiling} supply the
+corpus reconstruction and the ceiling; \S\ref{sec:baselines} the calibrated
+comparison and the trivial control; \S\ref{sec:results} the diagnostic results.
+\S\S\ref{sec:objectives}--\ref{sec:general} then ask what the protocol implies
+for training a metric, rather than only for auditing one.
+
+\section{\textsc{LegalEdit}: Constructing the Dissociation}
+\label{sec:legaledit}
+
+\subsection{Source text and edit inventory}
+
+The perturbations need source sentences that are statutory in register,
+plentiful, and regular enough in phrasing that a rule can apply cleanly. We draw
+them from two Quebec statutes held out from any corpus used elsewhere in the
+paper, the Automobile Insurance Act and the Highway Safety Code, and apply a
+single minimal edit that changes legal force while leaving the sentence
+otherwise intact. The inventory is organised by legal effect rather than by
+linguistic category, which is the respect in which it departs from general-domain
+perturbation suites:
+
+\begin{itemize}\itemsep2pt
+\item \textbf{Modality}: \emph{doit} $\leftrightarrow$ \emph{peut}; obligation
+      becomes permission.
+\item \textbf{Party}: \emph{l'assur\'e} $\leftrightarrow$ \emph{l'assureur};
+      the duty changes hands.
+\item \textbf{Polarity}: dropping \emph{ne \dots pas}; \emph{couvre}
+      $\leftrightarrow$ \emph{ne couvre pas}; \emph{exclut} $\leftrightarrow$
+      \emph{inclut}.
+\item \textbf{Quantum}: the first monetary or temporal amount multiplied by ten
+      (\emph{12 mois} $\rightarrow$ \emph{120 mois}).
+\item \textbf{Scope}: \emph{tous les} $\rightarrow$ \emph{certains};
+      \emph{sauf si} $\rightarrow$ \emph{si}.
+\item \textbf{Temporal}: \emph{avant} $\leftrightarrow$ \emph{apr\`es}.
+\item \textbf{Class} (tier 2): \emph{automobile} $\leftrightarrow$
+      \emph{v\'ehicule}, the defining example of the construct; and \emph{et}
+      $\leftrightarrow$ \emph{ou}, which converts conjunctive conditions to
+      disjunctive ones.
+\end{itemize}
+
+We separate a \emph{tier 1} set, in which the edit unambiguously changes who is
+bound, what is covered, or how much, from a \emph{tier 2} set of scope and class
+shifts, and report both.
+
+\subsection{Keeping the edit invisible to a fluency detector}
+
+A diagnostic of this kind fails if a metric can find the edited item by noticing
+that it reads badly. Perturbations that introduce a grammatical artefact are
+therefore filtered by a conservative French well-formedness check covering
+failed elision (\emph{le automobile}), missing contraction (\emph{de le}),
+doubled negation, and determiner--noun gender disagreement. The check flags none
+of the $400$ unmodified source sentences, so it removes only genuine artefacts
+rather than trimming the set toward any particular rule.
+
+The result is \numedits\ pairs (\numeditsTierOne\ tier 1) with mean token
+Jaccard \meanjaccard\ against their source, none below \minjaccard.
+Table~\ref{tab:examples} gives one example per rule.
+
+\begin{table}[t]\centering\small
+\input{tables/examples}
+\caption{\textsc{LegalEdit} samples, one per perturbation rule, with the edited
+span in bold. Each remains fluent and statutory in register, shares almost all
+of its tokens with the original, and states a different rule of law.}
+\label{tab:examples}
+\end{table}
+
+\subsection{Administering the diagnostic}
+
+For each source sentence $s$ with perturbation $s'$ we score three pairs:
+$(s,s)$, $(s,s')$, and $(s,u)$ for an unrelated sentence $u$ drawn from the same
+statutes. The metric's scores are min--max normalised per metric so that the
+identical and unrelated probes anchor its range, and the margin fraction of
+\S\ref{sec:protocol} is computed from the three means. Because the harness takes
+an arbitrary scoring function $m$, the same procedure applies unchanged to
+untrained metrics, to fine-tuned regressors, and to a prompted LLM judge.
+
+\section{Case Study: The \textsc{FrJudge} Corpus}
+\label{sec:corpus}
+
+\textsc{FrJudge} contains 297 pairs drawn from two Quebec insurance forms (one
+BAC home-insurance form, the AMF automobile forms), each simplified by
+\texttt{gpt-4-turbo-2024-04-09} with a zero-shot prompt and rated by five law
+students on legal meaning ($1$--$10$), simplicity (4 levels), and an 18-class
+legal characterization.
+
+Two files are public. \texttt{FrJUDGE.jsonl} contains 1{,}485 rows
+($297\times5$) but \emph{drops annotator identity}, which makes annotator-level
+analysis, and with it Requirement 1, impossible for a downstream user.
+The raw Prodigy export retains it in \texttt{\_annotator\_id}. We rebuild the
+corpus from that export, recovering the five annotators (pseudonymised A--E
+here; see \S\ref{sec:ethics}), the source document of each clause, and
+per-annotation timestamps. We verify the reconstruction against the published
+statistics: our mean pairwise percent agreement is $25.96\%$, matching the
+published value exactly, and our recovered per-annotator means ($\annotMeans$)
+match the published figure to within rounding. Everything downstream rests on
+this reconstruction, so we state the check before using it.
+
+\subsection{The reliability coefficient}
+\label{sec:agreement}
+
+Table~\ref{tab:agreement} resolves a discrepancy. Our nominal $\alpha$ for legal
+meaning is $0.104$, reproducing the published $0.10$; our nominal $\alpha$ for
+simplicity ($0.183$) and characterization ($0.552$) likewise reproduce the
+published $0.18$ and $0.55$. But legal meaning is measured on an ordered
+ten-point scale, and nominal $\alpha$ counts a one-point disagreement as fully
+as a nine-point one. With the ordinal coefficient appropriate to the design
+\citep{krippendorff2004content,artstein2008inter} the value is $\alphaOrd$.
+
+This matters in both directions. The corpus is more reliable than the published
+coefficient makes it look, which is a point in its favour that a reader would
+otherwise miss. But $\alphaOrd$ still indicates only fair agreement, and the
+disagreement that remains is not noise.
+
+\begin{table}[t]\centering\small
+\input{tables/agreement}
+\caption{Krippendorff's $\alpha$ on \textsc{FrJudge}. Legal meaning is an
+ordinal ten-point scale; the published $0.10$ is the nominal coefficient, which
+is not the appropriate measure for this design.}
+\label{tab:agreement}
+\end{table}
+
+\subsection{The structure of disagreement}
+
+The five annotators separate into two stable populations
+(Figure~\ref{fig:disagree}a): B, C and D average $\lenientMean$ and A and E
+average $\strictMean$, a gap of over three points on a ten-point scale. Ratings
+are strongly bimodal (the two modal values are $10$ and $1$), the median
+across-annotator range on a single pair is $\medianRange$ points, and
+\pctSpreadSix\ of pairs span at least six points (Figure~\ref{fig:disagree}b).
+Averaging produces a target with a standard deviation of only $\labelSd$,
+substantially narrower than the underlying ratings, which is precisely the
+condition under which a regressor that predicts the middle scores well. The
+observation is not incidental to the ceiling that follows; it is the reason the
+ceiling and the aggregate-reliability bound differ so much.
+
+\begin{figure*}[t]\centering
+\IfFileExists{figs/disagreement.pdf}{\includegraphics[width=\textwidth]{figs/disagreement}}{\fbox{\parbox{0.9\textwidth}{\centering\vspace{2em}[figure pending]\vspace{2em}}}}
+\caption{Disagreement in \textsc{FrJudge}. (a) The five annotators form two
+populations: B, C, D (blue) rate legal preservation about three points higher
+than A and E (red) across the whole corpus. (b) Sorted within-item range; the
+median item spans \medianRange\ points of a ten-point scale. (c) A single
+annotator predicts the consensus of the other four at $r=\ceilR$ (bar; whiskers
+give the range over the five held-out annotators), and the best-agreeing pair
+reaches $r=\bestPairR$; both sit below the $0.74$ reported for
+\textsc{JudgeBERT}.}
+\label{fig:disagree}
+\end{figure*}
+
+\section{The Human Ceiling}
+\label{sec:ceiling}
+
+Requirement 1 is directly executable here, because every item carries five
+ratings. For each annotator we correlate their ratings against the mean of the
+other four (Table~\ref{tab:ceiling}). The mean leave-one-annotator-out
+correlation is $\ceilR$ (RMSE $\ceilRmse$); the best-agreeing pair of annotators
+reaches $r=\bestPairR$ and the mean pairwise correlation is $\meanPairR$.
+
+\begin{table}[t]\centering\small
+\input{tables/ceiling}
+\caption{Leave-one-annotator-out ceiling on \textsc{FrJudge} ($n=297$).
+A single expert predicts the consensus of the other four at $r=\ceilR$.
+\textsc{JudgeBERT} is reported at $r=0.74$.}
+\label{tab:ceiling}
+\end{table}
+
+\paragraph{How to read a metric that beats it.}
+A model exceeding $\ceilR$ is not thereby superhuman. Predicting the \emph{mean}
+of five raters is easier than being one of them, for the reason given in
+\S\ref{sec:protocol}. The appropriate upper bound for predicting the observed
+mean is set by the reliability of that mean, which by Spearman--Brown from the
+mean pairwise correlation is $\sbRel$; a metric can in principle approach
+$\sqrt{\sbRel}=\sbSqrt$. Reporting both bounds separates two claims that a
+single correlation number runs together: \emph{as good as an expert}
+($r \approx \ceilR$) and \emph{as good as the aggregate allows}
+($r \approx \sbSqrt$). A reported $0.74$ sits comfortably between them, which is
+the whole point: it is evidence for the second claim and evidence against
+nothing at all with respect to the first. We recommend that any future
+legal-meaning metric report against both.
+
+\section{Metrics Under Identical Supervision}
+\label{sec:baselines}
+
+\subsection{The comparison set}
+
+Requirement 2 asks for a comparison in which every candidate sees the same
+supervision, and Requirement 3 for a trivial control inside it. We use
+French-capable metrics throughout, since scoring English-only metrics on French
+text confounds language coverage with metric quality: BERTScore
+\citep{zhang2019bertscore} over CamemBERTv2 \citep{antoun2024camembert2} and
+FlauBERT \citep{le2020flaubert}, both F1 and recall-only, since recall directly
+targets omission; sentence-embedding cosine with LaBSE \citep{feng2022labse},
+Sentence-CamemBERT, multilingual mpnet, and multilingual E5; and bidirectional
+NLI entailment with mDeBERTa-XNLI \citep{laurer2024nli}. To these we add the
+trivial surface features and a supervised ridge regression over ten of them.
+Each metric's raw score is mapped to the human scale by an isotonic regression
+fitted on the training split alone and evaluated on the held-out test split.
+
+\begin{table}[t]\centering\small
+\input{tables/baselines}
+\caption{Calibrated comparison on the \textsc{FrJudge} test split, mean over
+10 seeds. RMSE$_{\text{raw}}$ is the decimal-scaling protocol in current use;
+RMSE$_{\text{cal}}$ fits an isotonic map on the training split. $r$ and $\rho$
+are unaffected by calibration for the unsupervised metrics.}
+\label{tab:baselines}
+\end{table}
+
+\subsection{What identical supervision changes}
+
+Table~\ref{tab:baselines} reports the result, and three things in it are worth
+separating. First, calibration collapses most of the RMSE gap that uncalibrated
+comparisons record: the metrics were not as far from human judgment as such
+tables suggest, they were merely on a different scale. Second, the strongest
+single unsupervised signal is not a semantic one. Third, a ridge regression over
+word counts and token overlap reaches $r=\surfR$, which is at the human ceiling
+of \S\ref{sec:ceiling} and above every neural baseline. Whatever a fine-tuned
+legal metric adds beyond that, a comparison without this row does not measure.
+
+We do not read this as evidence that the corpus is trivial. We read it as
+evidence about what the \emph{annotation} rewards. Under the published rubric,
+score is reduced once per identified error, and the most frequent error type in
+LLM simplification is omission, which is strongly correlated with becoming
+shorter. A metric can therefore score well by detecting deletion, without any
+representation of legal force. That hypothesis is exactly what Requirement 4
+exists to test, and \S\ref{sec:results} tests it.
+
+\subsection{Statistical adequacy}
+
+The test split holds $\testN$ items. At that size, the smallest correlation
+reliably distinguishable from $r=0.46$ at $80\%$ power is $\mindetect$; a
+reported gap between $0.74$ and $0.46$ is therefore at the edge of
+detectability, and finer comparisons on a split this size are not resolvable at
+all. We report bootstrap confidence intervals throughout, following
+\citet{deutsch2021statistical}, and use the Williams test for dependent
+correlations \citep{graham2014williams} when comparing metrics against the same
+human scores.
+
+Table~\ref{tab:significance} applies that test to the comparison the previous
+subsection turns on. Every neural metric and the length feature correlate with
+the \emph{same} human label on the \emph{same} $297$ items, and with each other,
+so the comparison is dependent and a two-sample test on Fisher-transformed
+correlations would be anticonservative. Under Williams, the length feature's
+advantage is significant against every metric in the comparison set. We stress
+what this does and does not show: it establishes that the trivial baseline is
+genuinely stronger \emph{on this corpus}, not that the neural metrics reason
+less well about law. Distinguishing those two readings is what the diagnostic is
+for.
+
+\begin{table}[t]\centering\small
+\input{tables/significance}
+\caption{Williams tests against the trivial length baseline
+$\ell = -|\,|s|-|o|\,|$, which reaches $r=0.613$ with the human label $h$ over
+all $297$ items. $r(m,\ell)$ is each metric's correlation with the length
+feature itself, the dependence the test corrects for. Positive $t$ favours
+$\ell$.}
+\label{tab:significance}
+\end{table}
+
+\section{Diagnostic Results: Two Families, Not One}
+\label{sec:results}
+
+Table~\ref{tab:challenge} and Figure~\ref{fig:challenge} report the margin over
+\nMetricsChallenged\ scorers, and the result is sharper than we expected. The
+metrics divide cleanly into two families.
+
+Every \emph{similarity}-based metric fails, and fails almost completely. The
+seven embedding and BERTScore variants spend between $\simMarginLo$ and
+$\bertMargin$ of their working range on an edit that reverses the law: BERTScore
+over CamemBERTv2 places a sentence saying the opposite of the original at
+$0.982$ on a scale where the original itself sits at $1.000$ and an unrelated
+statute sits at $0.193$. Token Jaccard, at $0.079$, is in the same regime, which
+is the point: these metrics are behaving as overlap functions, exactly as the
+argument of \S\ref{sec:protocol} says they must. Their \emph{discrimination}
+rates are uninformative for the same reason: they rank the identical pair above
+the edited one $100\%$ of the time, but by a margin so small that it carries no
+decision. This is the concrete case the margin statistic was defined to catch.
+
+Bidirectional NLI does not fail. It spends $\maxMargin$ of its range on the
+edit, ranks correctly on $93.3\%$ of items, and places a legally flipped
+sentence ($0.265$) nearer the unrelated pair ($0.010$) than the identical one
+($0.784$). The two directions individually reach $0.424$ and $0.473$; taking
+their minimum, which is what an omission-\emph{or}-hallucination reading of the
+construct requires, is what produces the $0.670$. On the property the construct
+is about, this family is not merely competitive but in a different class.
+
+\paragraph{Relation to \textsc{MENLI}.}
+That entailment survives meaning-changing edits better than similarity is not a
+new claim: \citet{chen2023menli} establish it for general-domain NLG metrics,
+and our result is in that sense a confirmation rather than a discovery. We think
+the confirmation is worth having, since it was not obvious that it would
+transfer to a domain where the decisive edits are single function words in
+statutory French, nor that the gap would be this large. But we want to be clear
+about what is new here and what is not. Three things are. The perturbation
+inventory is defined by legal effect rather than by linguistic category, so the
+diagnostic speaks to a deployment question (may this metric gate a simplified
+clause?) rather than to metric robustness in general. The dissociation between
+corpus correlation and legal sensitivity reported below is a property of this
+corpus and could not be read off \textsc{MENLI}. And the observation in the next
+paragraph, that the sanity check this literature has standardised on would have
+excluded the entailment family outright, is specific to how legal-meaning
+metrics are currently validated.
+
+\paragraph{The existing checks would have rejected it.}
+Note where NLI's identical score sits: $0.784$, not $1.000$. This is not a
+normalisation artefact. In raw terms mDeBERTa assigns a mean entailment of
+$\nliIdentRaw$ to a sentence paired with \emph{itself}, and clears the $99\%$
+bar required by current practice \citep{beauchemin2025judgebert} on only
+$\nliIdentPass\%$ of items, against $100\%$ for every BERTScore and embedding
+metric. The metric that best tracks legal meaning is therefore the one metric
+that would be \emph{disqualified} by the sanity check in use. We take this as
+the strongest available argument for the position of \S\ref{sec:protocol}: the
+identical-pair check as presently applied does not merely fail to identify a
+legal metric, it actively selects against the family that has the property being
+sought. A metric that saturates on identical input is easy to build, since every
+overlap function does it by construction, and saturation is evidence about
+calibration at one endpoint, not about whether the metric reads the law. It
+should be reported, and it should not be a filter.
+
+\paragraph{The two orderings come apart.}
+Over the \nDissoc\ neural baselines the rank correlation between calibrated $r$
+on \textsc{FrJudge} and \textsc{LegalEdit} margin is $\rho=\dissocRho$, with a
+$95\%$ bootstrap interval of $[\dissocRhoLo, \dissocRhoHi]$. At this number of
+metrics, correlation with the human label simply does not predict legal
+sensitivity, in either direction. The extremes show why it matters: the trivial
+length feature is the best-correlating signal on the corpus ($r=0.641$,
+Table~\ref{tab:baselines}) and has the lowest margin of anything we test
+($0.011$, and it ranks the edited pair correctly only $11.3\%$ of the time),
+while bidirectional NLI sits mid-table on correlation ($r=0.395$) and is the
+only family that reacts to the edit at all. A metric selected on corpus
+correlation alone would pick the wrong one. Figure~\ref{fig:dissociation} plots
+the two axes against each other, and the emptiness of its upper-right quadrant
+is the finding.
+
+\begin{figure}[t]\centering
+\IfFileExists{figs/dissociation.pdf}{\includegraphics[width=\columnwidth]{figs/dissociation}}{\fbox{\parbox{0.9\columnwidth}{\centering\vspace{2em}[figure pending]\vspace{2em}}}}
+\caption{The two orderings come apart. Horizontally, how well a metric
+correlates with the human label on \textsc{FrJudge} after calibration, the
+quantity a conventional comparison selects on. Vertically, the share of its
+working range it spends on an edit that reverses the law. Selecting on the
+horizontal axis picks the length feature, at the bottom right, which is the
+worst scorer on the vertical one; the only family that moves at all sits in the
+middle of the horizontal axis.}
+\label{fig:dissociation}
+\end{figure}
+
+\begin{table}[t]\centering\small
+\input{tables/challenge}
+\caption{\textsc{LegalEdit}. Scores min--max normalised per metric.
+\emph{discrim.} is the share of items ranked correctly (identical $>$ edited);
+\emph{margin} is the fraction of the identical-to-unrelated range spent on the
+legal edit. Correct ranking is necessary but far from sufficient: the
+similarity metrics rank $100\%$ of items correctly while moving almost nothing,
+which is why the margin, not the rate, is the quantity to read.}
+\label{tab:challenge}
+\end{table}
+
+\paragraph{Is the failure uniform across edit types?}
+Table~\ref{tab:rules} breaks the margin down by perturbation rule, averaged over
+metrics. No rule is reliably detected: the best-detected operation, dropping
+\emph{ne \dots pas}, still averages only $\bestRuleMargin$, and it is plausibly
+the easiest because it is the one rule that \emph{removes} tokens rather than
+substituting them. At the other end sits the edit with the most direct legal
+consequence in an insurance contract. Swapping the bound party,
+\emph{l'assur\'e} for \emph{l'assureur}, which reverses who owes the duty and
+who is owed it, draws a mean margin of $0.046$ in one direction and $-0.005$ in
+the other. Those two cells rest on $11$ and $3$ items respectively, so we pool
+them: over all $\nParty$ party-swap items the seven similarity metrics spend
+$\partyMargin$ of their range (per-metric range
+$\partyMarginLo$--$\partyMarginHi$), against a mean of $\ruleMarginMean$ across
+all rules. Reversing which party a clause binds is close to the least detectable
+thing one can do to it. We tested whether the residual ordering is explained by
+the size of the edit in characters and found no relationship ($r=\ruleSizeR$
+over the \nRules\ rules, $95\%$ CI $[\ruleSizeLo, \ruleSizeHi]$). With \nRules\
+rules of unequal frequency the ordering is not itself well determined, and we
+report it descriptively; the robust observation is the ceiling, not the ranking.
+
+\begin{table}[t]\centering\small
+\input{tables/rules}
+\caption{\textsc{LegalEdit} margin by perturbation rule, averaged over the
+metrics in Table~\ref{tab:challenge}. \emph{worst metric} is the lowest margin
+any single metric assigns that rule. A margin of $1$ would mean the metric
+treats a legally flipped sentence exactly as it treats an unrelated one.}
+\label{tab:rules}
+\end{table}
+
+\begin{figure}[t]\centering
+\IfFileExists{figs/challenge.pdf}{\includegraphics[width=\columnwidth]{figs/challenge}}{\fbox{\parbox{0.9\columnwidth}{\centering\vspace{2em}[figure pending]\vspace{2em}}}}
+\caption{\textsc{LegalEdit}. For each metric the grey bar spans its score on an
+unrelated pair (dark circle) to its score on an identical pair (blue circle):
+its full working range. The red diamond is where it places a sentence whose
+legal force has been reversed by a single word. A metric that measured legal
+meaning would put the diamond at the left end. Every similarity-based metric
+puts it at the right, hard against the identical pair; the three NLI variants,
+at the top, are the only ones that move it appreciably.}
+\label{fig:challenge}
+\end{figure}
+
+\section{From Auditing a Metric to Training One}
+\label{sec:objectives}
+
+The protocol so far audits scorers that already exist. It also has implications
+for how one would fit a new one, and this section tests two of them. The first
+follows from \S\ref{sec:corpus}: the gold label is the mean of five ratings
+whose median spread is $\medianRange$ points, so fitting a scalar regressor to
+that mean asks the model to predict a quantity none of the annotators asserted,
+and rewards predicting the centre. The second follows from
+\S\ref{sec:protocol}: if a diagnostic identifies a deficiency, the obvious
+response is to train against it. We therefore train five variants on identical
+splits, differing only in target and loss:
+
+\begin{itemize}\itemsep2pt
+\item \textbf{Scalar} (the conventional objective): MSE against the mean rating.
+\item \textbf{Distributional}: a ten-way head trained with KL divergence against
+      the empirical rating histogram, following \citet{uma2021learning} and
+      \citet{peterson2019human}. The reported score is the distribution's
+      expectation, so it is directly comparable, but the model additionally
+      exposes its spread.
+\item \textbf{Annotator-aware}: five regression heads, one per annotator,
+      averaged at inference. This lets the model represent the lenient and
+      strict populations separately instead of averaging them away.
+\item \textbf{Quantile}: a pinball loss \citep{koenker1978regression} at
+      $\tau=0.25$. The asymmetry is deliberate. A metric that
+      \emph{overshoots} the human rating is permissive of bad simplifications,
+      while one that undershoots is merely strict, and in a legal setting those
+      errors are not symmetric; a quantile objective encodes that preference in
+      the loss rather than hoping it emerges.
+\item \textbf{Multi-task}: the scalar head plus an auxiliary characterization
+      head, trained against the majority vote of the five annotators, which
+      spans 17 of the rubric's 18 classes (the eighteenth never carries a
+      majority). The characterization labels are collected in \textsc{FrJudge}
+      and then discarded; since the published rubric has annotators characterize
+      a clause \emph{before} scoring it, the label plausibly carries information
+      about the score.
+\end{itemize}
+
+We additionally train two augmented variants: \textbf{DA}, the
+identical/unrelated augmentation in current use carried over unchanged, and
+\textbf{DA+LegalEdit}, which adds minimally-edited negatives to the training
+mixture.
+
+\paragraph{Evaluation protocol.} Correlation and RMSE are computed \emph{only}
+on the human-annotated test split, never on a split containing augmentation.
+This matters: adding identical pairs (label 10) and unrelated pairs (label 1) to
+the evaluation set inflates label variance at the extremes, which raises Pearson
+$r$ for every metric without any improvement in judgment. Published tables that
+do not separate the two show the signature clearly: BERTScore moves from $0.46$
+to $0.94$ while its RMSE simultaneously \emph{worsens} from $3.61$ to $5.09$,
+which is the mark of variance inflation rather than of better measurement. Augmentation here affects
+training only; the three diagnostic regimes are reported separately as pass
+rates.
+
+\begin{table}[t]\centering\small
+\input{tables/models}
+\caption{Trained metrics, mean over 5 seeds, evaluated on the human-annotated
+test split only. \emph{ident.}\ and \emph{unrel.}\ are the two sanity checks in
+current use; \textsc{LegalEdit} false-acceptance is the share of legally flipped
+pairs still scored $\geq 7$ (``accurate'' under the published rubric). The
+margin is the quantity defined in \S\ref{sec:protocol} and reported for the
+untrained metrics in Table~\ref{tab:challenge}. It is shown as `--' where a
+model places the identical and unrelated probes within one point of each other,
+because a model with no working range has none to spend on the edit, and the
+ratio of two such differences carries no information.}
+\label{tab:models}
+\end{table}
+
+\paragraph{The training target barely moves the correlation.}
+Table~\ref{tab:models} reports the grid, and the first result is a negative one.
+The distributional head gains $0.030$ of Pearson $r$ over the scalar baseline
+and the quantile head $0.011$, while the annotator-aware and multi-task heads
+lose $0.008$ and $0.023$. Every one of those differences is smaller than the
+scalar baseline's own spread across seeds ($\pm0.082$), and on paired seeds the
+best of them wins three times out of five. \S\ref{sec:baselines} put the
+smallest resolvable gap on a $\testN$-item test split at roughly a quarter of a
+correlation point; that applies to our variants as much as to anyone else's
+baselines, and we report the ordering without asking the reader to believe it.
+
+The differences that do survive are in the other columns. The distributional
+head is markedly steadier than the scalar head it replaces, $\pm0.029$ against
+$\pm0.082$ over the same five seeds, reaches the best RMSE in the table
+($1.99$), and roughly doubles the rank correlation ($\rho=0.578$ against
+$0.280$), which is what one expects from a target carrying the shape of the
+rating distribution and not only its mean. The quantile head does precisely what
+it was asked to do: it overshoots the human label on $9.9\%$ of test items
+against $25.4\%$ for the scalar head, the lowest rate of any model here. The
+risk asymmetry that a legal setting calls for can therefore be written into the
+loss rather than hoped for, and it costs nothing in correlation. We read the
+disagreement-aware objectives as buying stability and calibration, not accuracy.
+
+\paragraph{Augmentation, scored honestly, is harmful.}
+The two augmented mixtures are the clearest effect in the table and they run
+against the published finding. \textsc{JudgeBERT}-DA loses $0.350$ of
+correlation against the un-augmented baseline and \textsc{DA+LegalEdit} loses
+$0.420$, on five seeds out of five in both cases, and the instability is severe:
+DA varies by $\pm0.254$ across seeds and reaches $r=-0.188$ on one of them. The
+published figure has augmentation raising $r$ from $0.74$ to $0.97$. The
+difference is entirely the evaluation set. That figure is computed on a split
+containing the augmentation, where identical pairs at $10$ and unrelated pairs
+at $1$ supply most of the label variance; scored on the human-annotated items
+alone, the same augmentation costs more than half the correlation. This is the
+concrete form of the variance-inflation argument above, and it is why we
+separate the two evaluations rather than reporting a single number.
+
+\paragraph{Trained constraints do not cross a change of document.}
+Every model in Table~\ref{tab:models} scores $0\%$ on the identical-pair check,
+the two augmented ones included, although identical pairs are in their training
+mixture. The unrelated check goes the other way: the augmented models pass it on
+$77\%$ and $69\%$ of probes and the un-augmented models on none. The asymmetry
+is exactly the one our probe design predicts. Our unrelated probes are drawn
+from the same two statutes the training mixture draws its unrelated pairs from,
+so passing that check is an in-distribution result; our identical probes are
+statutory sentences while the mixture's identical pairs are \textsc{FrJudge}
+clauses, so passing that one would require generalising across source documents,
+and no model does. The same holds for the diagnostic: \textsc{DA+LegalEdit},
+trained on minimally-edited negatives, reaches a margin of $0.051$, against
+$0.670$ for untrained bidirectional NLI. Its negatives are generated from
+\textsc{FrJudge} originals and its probes from statutes, and the sensitivity
+does not survive the move. One column here should be read with care:
+\textsc{LegalEdit} false-acceptance is the share of flipped pairs still scored
+$\geq 7$, so it is confounded with where a model puts its predictions overall.
+The distributional head's $69\%$ reflects a head that scores high in general
+(its identical probes average $7.22$), and the $0\%$ of the scalar heads
+reflects models that score low on everything, not models that reject the edit.
+
+\section{What Survives a Change of Document}
+\label{sec:general}
+
+A metric meta-evaluation that never changes source document cannot distinguish
+legal sensitivity from familiarity with a form. We therefore add an
+out-of-domain split. \textsc{FrJudge} clauses come from identifiable source
+documents, which we recover from the raw export. Random splitting lets clauses
+from the same insurance form appear in both training and test, and insurance
+forms are highly templated. We compare the standard random split against a
+document-grouped split in which no source document straddles the boundary
+(Table~\ref{tab:models_grouped}); the difference estimates how much of the
+reported performance is form-specific. We rerun three of the seven
+configurations of Table~\ref{tab:models} on that split: the scalar baseline and
+the two augmented mixtures. The remaining four differ from the baseline in what
+they are trained to predict rather than in what they can exploit about a source
+form, so the leakage they are exposed to is the same, and running them again
+would cost training time without addressing the question the split is asked to
+answer.
+
+The corpus makes that harder than it sounds. Its 297 pairs come from only 21
+source forms and the three largest hold 71\% of them, so the obvious
+construction, sweeping the forms in random order and cutting at the cumulative
+60/70\% marks, lets a single large form overshoot a boundary and starve the
+split behind it. On seeds 42--46 that procedure returns test splits of 16, 87,
+30, 0 and 88 pairs, one of them empty and one far too small to carry a
+correlation. We therefore choose the form-to-split assignment by a short local
+search over total deviation from the target sizes. Thousands of assignments hit
+$178/30/89$ exactly, so each seed still selects a genuinely different partition
+while every split matches the random-split sizes of Table~\ref{tab:models} pair
+for pair, and the two tables differ only in which forms are held out. One
+limitation is structural rather than incidental: the largest form is 37\% of the
+corpus, larger than the 30\% test quota, so it always falls in training and the
+grouped test set is always drawn from the remaining 188 pairs.
+
+\begin{table}[t]\centering\small
+\input{tables/models_grouped}
+\caption{Document-grouped split: no source form appears in both training and
+test. Columns are as in Table~\ref{tab:models}, and the splits are size-matched
+to it ($178/30/89$). The untrained NLI reference is recomputed on the grouped
+splits rather than carried over, since a corpus-level correlation is not
+comparable to a document-grouped one; the human ceiling is a property of the
+annotations and does not depend on the split. Comparing against
+Table~\ref{tab:models} isolates the part of the reported correlation that
+survives a change of source document.}
+\label{tab:models_grouped}
+\end{table}
+
+\paragraph{The comparison does not resolve.} The scalar baseline's correlation
+falls from $0.542$ on the random split to $0.454$ on the grouped one, a drop of
+$0.088$ that is in the direction leakage would predict. It does not survive
+inspection. The per-seed differences are $+0.169$, $-0.097$, $-0.416$, $-0.182$
+and $+0.086$: two of the five seeds \emph{improve} under the harder split, and
+the grouped spread ($\pm0.143$) is wider than the gap itself. The two augmented
+mixtures move by $-0.002$ and $+0.026$, which is to say not at all. As a
+control, the untrained NLI reference is fitted to nothing and should be
+indifferent to how the corpus is partitioned; it moves from $0.395$ to $0.391$,
+confirming that the two splits are otherwise comparable and that the variance
+above is the models' and not the split's.
+
+We therefore do not claim that document-level leakage inflates the reported
+correlation, and we would ask that our own evidence be held to the standard
+\S\ref{sec:baselines} applies elsewhere. What we can say is narrower and, we
+think, more useful to anyone planning a successor corpus: \textsc{FrJudge} is
+too small and too concentrated to answer the question. Its grouped test split is
+always drawn from the $188$ pairs the largest form leaves behind, at which size
+the seed-to-seed variation swamps the effect being measured. A corpus intended
+to support an out-of-domain claim needs its documents spread far more evenly
+than three forms holding $71\%$ of the data, and this is the aspect of the
+design we would change first.
+
+\paragraph{Stratifying by length change.}
+We further break the test predictions down by the magnitude of the length change
+between original and simplification. If a metric's correlation is concentrated
+in the buckets where the simplification is much shorter, it is detecting
+deletion rather than legal change, the hypothesis raised in
+\S\ref{sec:baselines}. Table~\ref{tab:buckets} reports Pearson $r$ inside each
+tercile of $|\,|s|-|o|\,|$. Within a tercile the length signal is largely held
+constant, so a metric that retains its correlation there is using something
+other than deletion; one whose correlation collapses was reading length all
+along. This is a weaker form of the same dissociation logic as
+\S\ref{sec:protocol}: it holds a confound approximately fixed by conditioning
+rather than exactly fixed by construction.
+
+\begin{table}[t]\centering\small
+\input{tables/buckets}
+\caption{Correlation with the human label \emph{within} terciles of the
+absolute length change, pooling test predictions over seeds. Restricting to a
+tercile removes most of the length variance; a metric that measures legal
+meaning should degrade far less than one that measures deletion.}
+\label{tab:buckets}
+\end{table}
+
+The result qualifies \S\ref{sec:baselines} in a way that is worth stating
+carefully, because it cuts against our own argument. The length feature's
+correlation is overwhelmingly a \emph{between}-tercile effect: pooled over the
+corpus it reaches $0.613$, but inside the small and medium terciles it falls to
+$0.243$ and $0.165$. Once items of comparable length change are compared with
+each other, knowing the length change tells you little. It recovers to $0.585$
+only in the tercile where the simplification is much shorter than the original,
+which is exactly where deletion is available to be detected. The neural
+baselines have the opposite profile: in the medium tercile \textsc{BERTScore}
+over FlauBERT reaches $0.449$ and LaBSE $0.532$, at or above their pooled values
+of $0.484$ and $0.424$, where the length feature retains almost nothing. The
+supervised surface ridge tracks the raw length feature bucket for bucket, which
+is what one would expect if it is largely a length model with extra terms. The
+small tercile is hard for everything, which we read as a floor effect rather
+than as a result: when the two sentences are close to the same length, none of
+these signals has much to go on.
+
+The honest reading is therefore narrower than ``legal meaning preservation is
+length preservation''. The corpus-level ranking is dominated by length, and any
+comparison that omits a length control will attribute to a metric what it should
+attribute to that confound. But the neural metrics are not \emph{only} reading
+length. Where the length signal is weakest, they are the ones that hold up,
+keeping or exceeding the correlation they had over the whole corpus; whatever
+they are reading in that stratum, it is not the length change. What
+\S\ref{sec:results} adds is that the residual signal they retain is still not
+legal sensitivity, since the same metrics move almost not at all when the law is
+changed and the length is held exactly fixed. The two analyses answer different
+questions, and a metric has to survive both.
+
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{Three checks, none of them a filter.}
+We propose that a metric claiming to measure legal meaning report three checks,
+not two: identical pairs (does it saturate correctly?), unrelated pairs (does it
+bottom out?), and \textsc{LegalEdit} (does it move when, and only when, the law
+moves?). The first two are jointly satisfiable by lexical overlap and so cannot
+distinguish a legal metric from a similarity function; the third cannot be
+passed by overlap at all. That \textsc{LegalEdit} is passable matters as much as
+that it is hard: because bidirectional NLI clears it while every similarity
+metric does not, a low margin identifies a specific, fixable deficiency rather
+than an inherent limit of automatic evaluation.
+
+Our second recommendation is one the results force on us. The three checks
+should be reported \emph{jointly and separately}, and none of them should be
+used as an admission criterion. Here the metric that scores highest on the
+diagnostic is also the metric that fails the identical-pair check most badly,
+and a pipeline that screened candidates on saturation, as the current convention
+invites, would have discarded it before the interesting question was asked.
+Saturation, bottoming out, and legal sensitivity are three independent
+properties; a scorer can be repaired for the first two by calibration, and
+cannot be repaired for the third at all. Rank on the property that cannot be
+fixed.
+
+We also caution that a metric trained on its own sanity checks has not thereby
+passed them, and our runs show that caution cutting harder than we expected.
+\textsc{JudgeBERT}-DA is reported at $100\%$ on both checks, with those exact
+distributions in its training mixture. Our augmented models pass the unrelated
+check on $77\%$ and $69\%$ of probes and the identical check on none of them
+(Table~\ref{tab:models}), and the only difference between those two outcomes is
+whether the probe comes from the same documents as the training pairs. Training
+on a constraint buys satisfaction of it in distribution and nothing at all
+across a change of source. The honest report separates ``satisfies the
+constraint by construction'' from ``generalises to the constraint'', and only
+the second is evidence about a metric.
+
+\paragraph{What to report alongside correlation.}
+Given a corpus with $k$ ratings per item, the human ceiling is free to compute
+and should be mandatory. We recommend reporting (i) leave-one-annotator-out
+correlation as the ``as good as an expert'' bound, (ii) the Spearman--Brown
+reliability of the aggregate as the ``as good as the aggregate allows'' bound,
+(iii) a trivial surface-feature baseline, and (iv) all metrics calibrated to the
+human scale under identical supervision. Each of these changed a conclusion in
+this study, which is our main reason for proposing them as a protocol rather
+than as advice.
+
+\paragraph{Entailment is the better starting point.}
+The construct \textsc{FrJudge} annotates is defined by an error taxonomy whose
+two dominant categories are omission and hallucination. Those are precisely the
+two directions of entailment failure, and our results suggest the correspondence
+is not merely conceptual: the only scorer that reacts to a legally decisive edit
+is the one built from bidirectional entailment. We would not conclude that an
+off-the-shelf multilingual NLI model is an adequate legal metric: its
+correlation with the human label is middling ($r=0.395$), it is slower than a
+fine-tuned encoder, and its margin of $\maxMargin$ still leaves a third of the
+range unspent. The conclusion we draw is narrower and, we think, more useful:
+the next legal-meaning metric should be built on an entailment objective and
+evaluated on the diagnostic, rather than on a similarity objective selected by
+corpus correlation. A supervised model trained against \textsc{FrJudge}
+\emph{and} minimally-edited negatives is the obvious candidate, and
+\S\ref{sec:objectives} reports a first attempt at one.
+
+\paragraph{Disagreement is the finding, not the noise.}
+That two of five Quebec law students systematically rate legal preservation
+three points lower than the other three is not an annotation defect to be
+averaged away. It is a measurement of how much legal interpretation of an
+isolated clause varies among trained readers, and any deployed metric that
+returns a single number conceals it. A metric that reports ``6.2, experts ranged
+2--9'' tells a practitioner something actionable, namely that this clause needs
+a human, which ``6.2'' does not.
+
+\section{Reproducibility}
+\label{sec:repro}
+
+Every number in this paper is produced by a single pipeline that runs end to end
+on a laptop; the largest model involved is CamemBERTv2-base (112M parameters)
+and no GPU cluster is required. We release the experiment code, the
+reconstruction of \textsc{FrJudge} from the raw export (which recovers annotator
+identity and source document, both dropped from the public JSONL), the
+document-grouped splits, the \textsc{LegalEdit} generator and scoring harness,
+and the result files behind every table.
+
+One caveat on exact reproduction: our training runs use Apple MPS kernels, which
+are not bitwise deterministic, so a fixed seed reproduces a run only
+approximately: repeat runs of the scalar configuration at seed $42$ differ in
+test-set $r$ by several hundredths, which is comparable to the spread across
+seeds. We therefore report means and standard deviations over five seeds and
+treat any difference smaller than that spread as unresolved, the same discipline
+\S\ref{sec:baselines} asks of everyone else, applied to ourselves. Anyone
+reproducing this on CUDA should expect tighter agreement and correspondingly
+narrower error bars.
+
+Two further details matter for anyone reproducing the diagnostic. The first is
+what the probes share with training, which differs by regime and which we state
+precisely because conflating the two is one of the failure modes the protocol is
+meant to prevent. The \emph{identical} probe is built from statutory sentences
+(the Quebec Automobile Insurance Act and the Highway Safety Code) while the
+identical pairs in the \textsc{-DA} training mixture are built from
+\textsc{FrJudge}'s insurance-form clauses, so a model passes that probe only by
+generalising across source documents. The \textsc{LegalEdit} probe is likewise
+generated from statutory sentences, while the minimally-edited negatives added
+by the \textsc{DA+LegalEdit} variant are generated from \textsc{FrJudge}
+originals: same perturbation rules, disjoint sentences. The \emph{unrelated}
+probe is the weakest of the three in this respect: both it and the unrelated
+pairs in the training mixture are drawn from the same two statutes, under
+different random seeds, so a high unrelated pass rate for a \textsc{-DA} model
+should be read as in-distribution and we do not treat it as evidence of
+generalisation. Second, the ordinal Krippendorff coefficient we report is
+computed with the same library and the same reliability matrix as the nominal
+one, so the difference between $0.104$ and $\alphaOrd$ is attributable to the
+distance function alone.
+
+\section{Limitations}
+\label{sec:limits}
+
+Our \textsc{LegalEdit} labels are definitional rather than annotated: we assert
+that changing \emph{doit} to \emph{peut} changes legal meaning, rather than
+having lawyers rate each perturbation. We think this is defensible for tier-1
+edits, which alter modality, party, polarity or quantum, and we report tier-2
+scope shifts separately for exactly this reason; but a human-validated version
+would be stronger, and a small expert study is the obvious next step. The
+perturbations are also single-edit and template-generated, so they probe a
+specific and narrow kind of legal change; a system could in principle be tuned
+to them without acquiring general legal sensitivity, which is why we treat
+\textsc{LegalEdit} as a necessary condition and not a benchmark to be optimised.
+
+That caveat bears directly on our most encouraging result, and we would rather
+state it than let a reader find it. Our perturbations are largely negation,
+modality, quantifier and antonym contrasts, which is close to the inventory
+natural language inference training data is built around. A model fine-tuned on
+XNLI has seen a great many \emph{ne \dots pas} insertions and
+\emph{tous}/\emph{certains} alternations, so bidirectional NLI's margin of
+$\maxMargin$ may reflect familiarity with the \emph{form} of our edits rather
+than sensitivity to their legal consequence. The two hypotheses make different
+predictions: only the second should survive perturbations that change legal
+force without changing logical form, such as substituting a defined term for a
+near-synonym that is not its legal equivalent. Separating them needs a version
+of the diagnostic built around defined-term substitution, which our rule
+inventory reaches only through the single \emph{automobile}/\emph{v\'ehicule}
+case. We report the NLI result as a promising direction with an identified
+confound, not as evidence that entailment models read law.
+
+A further mismatch is that the diagnostic and the correlation evaluation run on
+different text. \textsc{FrJudge} is drawn from insurance forms, while the
+\textsc{LegalEdit} probes are generated from two Quebec statutes, because the
+statutes supply the volume and the regularity of phrasing that the perturbation
+rules need. The two are the same language and register but not the same genre,
+so Table~\ref{tab:challenge} and Table~\ref{tab:baselines} answer different
+questions about the same metric and should not be read as one ranking.
+
+We do not evaluate an LLM-as-judge baseline, and this is the most significant
+gap in our comparison. Recent legal evaluation work \citep{zhou2024lemaj}
+suggests that a prompted frontier model given the annotators' own rubric is the
+natural competitor to a fine-tuned 112M-parameter encoder, and a demonstration
+that the small supervised model matches it would be a strong efficiency result.
+We note two reasons the omission does not affect our conclusions. Our claims are
+about what a corpus-correlation comparison establishes, and about a diagnostic
+property, sensitivity to a legally decisive edit, that is a necessary condition
+for any scorer, prompted or fine-tuned; and our evaluation harness
+takes an arbitrary scoring function, so \textsc{LegalEdit} can be run against a
+prompted judge without modification. We release the harness with that interface
+so the comparison can be completed.
+
+Like the corpus we build on, we evaluate isolated clauses out of document
+context, and all simplifications come from a single generator
+(\texttt{gpt-4-turbo}) with one prompt. A metric meta-evaluation properly
+requires outputs from several systems spanning a range of quality; with one
+generator, a metric may be learning that generator's characteristic failure
+modes. \S\ref{sec:general} addresses document-level leakage but cannot address
+generator-level overfitting.
+
+Finally, our human ceiling is computed on all 297 items while the model
+correlations are computed on $\testN$-item test splits, and the ceiling carries
+its own sampling uncertainty (per-annotator 95\% CIs in
+Table~\ref{tab:ceiling}). The comparison ``model $>$ ceiling'' should be read
+with those intervals in view.
+
+\section{Ethical Considerations}
+\label{sec:ethics}
+
+\paragraph{Annotator de-anonymisation in the public artefacts.}
+\textsc{FrJudge}'s five annotators are pseudonymised as A--E in the paper that
+introduces them. The public raw export, however, records their real first names
+in the \texttt{\_annotator\_id} and \texttt{\_session\_id} fields, joined to
+per-annotation Unix timestamps and free-text justifications. This makes five
+named law students' individual legal judgments, working pace, and reasoning
+publicly attributable, contrary to the pseudonymisation the paper describes. We
+use only pseudonyms A--E throughout this work, our released code pseudonymises
+on load, and we do not reproduce the names. We have not been able to determine
+whether the annotators' consent covered named release; we flag it so that the
+maintainers can repair the file and, if appropriate, its history. We report this
+as a reproducibility and data-protection issue, not as a criticism of the
+study's conduct: releasing raw annotation exports is good practice, and this is
+a foreseeable and easily corrected side effect of it.
+
+\paragraph{Use of the metric.}
+Our results strengthen a caution \citet{beauchemin2025judgebert} themselves raise. A metric
+that cannot distinguish \emph{doit} from \emph{peut} must not be used as an
+automated gate on whether a simplified clause is safe to publish. We regard the
+appropriate deployment as triage, that is, the ranking of clauses for human
+review and the flagging of disagreement, rather than as certification. Nothing here constitutes legal
+advice.
+
+\paragraph{Notes on the public artefacts.}
+Working from the released files surfaced a number of small discrepancies, which
+we record here so that they can be corrected, and offer as errata rather than as
+criticism. Table~7 reports ``Top K 0.9'', but $0.9$ is a \texttt{top\_p} value
+and the OpenAI API exposes no \texttt{top\_k}; \S3.2.2 describes Kandel and
+Moles (1958) as a ``Flesch-Kincaid grade level'' with $\leq 50$ indicating
+harder text and a discarded example at $69.87$, which identifies it as French
+Flesch \emph{Reading Ease} (higher = easier), not a grade level; \S6.2 says
+``only three metrics'' and lists four; Table~5's fourth column is headed
+\texttt{\%>1\%} while the text defines it as the ratio scoring at or below
+$1\%$; and SBERT-Multi's identical-pair score differs between the DA-false
+($0.00$) and DA-true ($100.00$) blocks although it is an untrained metric whose
+behaviour on identical pairs cannot depend on how \textsc{JudgeBERT} was
+trained. The repository README additionally documents a schema from a different
+project (a binary grammaticality label), and the dataset license differs between
+the paper (CC-BY 4.0) and the repository (CC-BY-NC-SA 4.0).
+
+\section{Conclusion}
+
+Legal meaning preservation is the right construct to evaluate, and the resources
+that now exist for it deserve to be built on. But the evidence a metric paper in
+this area conventionally offers, namely a correlation with an averaged human
+label, computed against uncalibrated baselines, without a trivial control, and
+on sanity checks the model may have been trained on, cannot establish that the
+metric measures legal meaning rather than lexical overlap and length. We have argued that the
+missing ingredient is a dissociation, and that it is cheap: hold surface form
+fixed and move the law. On that test every similarity-based metric we examined,
+the state of the art included, scores a sentence that says the opposite of the
+original as though nothing had changed, and reversing which party a clause binds
+is among the least detectable edits of all. The test is not unpassable:
+bidirectional entailment, a family the standard comparison leaves out and the
+standard sanity check would have disqualified, clears most of it. That is the
+encouraging half of the result, and it points at what the next version of such a
+metric should be made of. It also carries a warning about how these metrics are
+selected, because the signal that ranks best on the corpus ranks last on the
+law.
+
+\bibliography{refs}
+
+\end{document}
