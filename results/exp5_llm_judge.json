@@ -1,0 +1,275 @@
+{
+  "panel": {
+    "mean_rating": {
+      "A": 4.32996632996633,
+      "B": 7.572390572390573,
+      "C": 7.545454545454546,
+      "D": 7.717171717171717,
+      "E": 4.356902356902357,
+      "JUDGE": 9.110606060606061
+    },
+    "sd_rating": {
+      "A": 3.526553099918261,
+      "B": 3.0177330012746038,
+      "C": 3.058154833992979,
+      "D": 3.0496687595382856,
+      "E": 3.2443519169221138,
+      "JUDGE": 1.2426742788559972
+    },
+    "judge_vs_annotator": {
+      "A": 0.4660642736688436,
+      "B": 0.4922902956765581,
+      "C": 0.6300970067993046,
+      "D": 0.5638918896539354,
+      "E": 0.5676648619017418
+    },
+    "mean_judge_human_r": 0.5440016655400767,
+    "mean_human_human_r": 0.4619449618783089,
+    "alpha_5": 0.32517358167018906,
+    "alpha_6": 0.3004368137935326
+  },
+  "self_consistency": {
+    "alpha_self": 0.6885755185316602,
+    "alpha_humans": 0.32517358167018906,
+    "r_by_k": [
+      0.6112780734684115,
+      0.6664639244226926,
+      0.7005497847930947,
+      0.7098748621668913,
+      0.7193718211710806
+    ]
+  },
+  "corpus": {
+    "r_raw_mean": 0.7231923014431682,
+    "r_raw_sd": 0.0530120072695382,
+    "r_cal_mean": 0.7553338531872794,
+    "r_cal_sd": 0.05408102720083782,
+    "rmse_cal_mean": 1.5702316291336011,
+    "r_full": 0.7193718211710806,
+    "r_full_ci": [
+      0.663384546831503,
+      0.7692875995601636
+    ]
+  },
+  "diagnostic": {
+    "n": 373,
+    "identical": 10.0,
+    "legaledit": 6.6916890080428955,
+    "legaledit_t1": 6.307096774193549,
+    "unrelated": 1.0568364611260055,
+    "margin_frac": 0.369926254571617,
+    "margin_frac_t1": 0.41200604621032183,
+    "margin_frac_t2": 0.16008614501076815,
+    "discrim": 0.8632707774798928,
+    "ident_minus_edit": 3.3083109919571045,
+    "ident_minus_edit_ci": [
+      3.013391420911529,
+      3.5978552278820377
+    ]
+  },
+  "by_rule": {
+    "negation_drop": {
+      "mean": 1.2,
+      "n": 21,
+      "tier": 1
+    },
+    "condition_unless_to_if": {
+      "mean": 3.2600000000000002,
+      "n": 10,
+      "tier": 1
+    },
+    "modal_obligation_to_permission": {
+      "mean": 4.724390243902439,
+      "n": 82,
+      "tier": 1
+    },
+    "party_insurer_to_insured": {
+      "mean": 4.800000000000001,
+      "n": 11,
+      "tier": 1
+    },
+    "temporal_flip": {
+      "mean": 4.933333333333334,
+      "n": 9,
+      "tier": 1
+    },
+    "amount_x10": {
+      "mean": 6.4,
+      "n": 21,
+      "tier": 1
+    },
+    "party_insured_to_insurer": {
+      "mean": 6.466666666666666,
+      "n": 3,
+      "tier": 1
+    },
+    "modal_permission_to_obligation": {
+      "mean": 8.021621621621623,
+      "n": 111,
+      "tier": 1
+    },
+    "connective_or_to_and": {
+      "mean": 8.023076923076925,
+      "n": 26,
+      "tier": 2
+    },
+    "scope_all_to_some": {
+      "mean": 8.776190476190477,
+      "n": 42,
+      "tier": 1
+    },
+    "connective_and_to_or": {
+      "mean": 8.814814814814817,
+      "n": 27,
+      "tier": 2
+    },
+    "vehicle_class": {
+      "mean": 9.42,
+      "n": 10,
+      "tier": 2
+    }
+  },
+  "errors": {
+    "identical": {
+      "samples": 1865,
+      "any_error": 0.0,
+      "incoherence": 0.0,
+      "counts": {}
+    },
+    "legaledit": {
+      "samples": 1865,
+      "any_error": 0.7812332439678285,
+      "incoherence": 0.5458445040214477,
+      "counts": {
+        "INCOHERENCE": 1018,
+        "CONFUSION": 184,
+        "HALLUCINATION": 179,
+        "OMISSION": 84,
+        "OTHER": 6
+      }
+    },
+    "unrelated": {
+      "samples": 1865,
+      "any_error": 0.9989276139410188,
+      "incoherence": 0.5962466487935657,
+      "counts": {
+        "HALLUCINATION": 1063,
+        "INCOHERENCE": 1117,
+        "OMISSION": 742,
+        "OTHER": 14,
+        "CONFUSION": 70
+      }
+    }
+  },
+  "predictiveness": {
+    "metrics": [
+      {
+        "name": "LLM-judge (deepseek-chat, k=5)",
+        "r_cal": 0.7553338531872794,
+        "margin_frac": 0.369926254571617,
+        "rank_r": 1,
+        "rank_margin": 4
+      },
+      {
+        "name": "BERTScore-FlauBERT",
+        "r_cal": 0.4815802034454569,
+        "margin_frac": 0.035173377113949605,
+        "rank_r": 2,
+        "rank_margin": 6
+      },
+      {
+        "name": "LaBSE",
+        "r_cal": 0.40910043988134426,
+        "margin_frac": 0.039448205874994244,
+        "rank_r": 3,
+        "rank_margin": 5
+      },
+      {
+        "name": "NLI-bidirectional (min)",
+        "r_cal": 0.3948485895872168,
+        "margin_frac": 0.6702741973615722,
+        "rank_r": 4,
+        "rank_margin": 1
+      },
+      {
+        "name": "NLI-fwd (no hallucination)",
+        "r_cal": 0.36772410322879867,
+        "margin_frac": 0.4244744434333815,
+        "rank_r": 5,
+        "rank_margin": 3
+      },
+      {
+        "name": "mE5-base",
+        "r_cal": 0.35849813740473413,
+        "margin_frac": 0.03376448525552366,
+        "rank_r": 6,
+        "rank_margin": 7
+      },
+      {
+        "name": "BERTScore-CamemBERTv2-Recall",
+        "r_cal": 0.3518261660799424,
+        "margin_frac": 0.02288087115985209,
+        "rank_r": 7,
+        "rank_margin": 10
+      },
+      {
+        "name": "NLI-bwd (no omission)",
+        "r_cal": 0.33969281877312757,
+        "margin_frac": 0.4734445587189496,
+        "rank_r": 8,
+        "rank_margin": 2
+      },
+      {
+        "name": "Sentence-CamemBERT",
+        "r_cal": 0.2956517349339915,
+        "margin_frac": 0.024166771440520818,
+        "rank_r": 9,
+        "rank_margin": 9
+      },
+      {
+        "name": "BERTScore-CamemBERTv2",
+        "r_cal": 0.2912681319432865,
+        "margin_frac": 0.022288424489479663,
+        "rank_r": 10,
+        "rank_margin": 11
+      },
+      {
+        "name": "Para-mUSE-mpnet",
+        "r_cal": 0.2518290758695239,
+        "margin_frac": 0.02830511953323428,
+        "rank_r": 11,
+        "rank_margin": 8
+      }
+    ],
+    "spearman": 0.5545454545454546,
+    "spearman_ci": [
+      -0.05265725288831834,
+      0.8878504672897195
+    ],
+    "pearson": 0.29708001433872316
+  },
+  "usage": {
+    "total": {
+      "prompt_tokens": 3926568,
+      "prompt_cache_hit_tokens": 2781312,
+      "calls": 7080,
+      "failed": 2,
+      "completion_tokens": 445633
+    },
+    "est_usd": 0.99,
+    "frjudge": {
+      "calls": 1485,
+      "failed": 2,
+      "prompt_tokens": 897558,
+      "completion_tokens": 105646,
+      "prompt_cache_hit_tokens": 648448
+    },
+    "exp4": {
+      "calls": 5595,
+      "failed": 0,
+      "prompt_tokens": 3029010,
+      "completion_tokens": 339987,
+      "prompt_cache_hit_tokens": 2132864
+    }
+  }
+}

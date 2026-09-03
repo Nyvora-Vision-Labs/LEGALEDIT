@@ -1,0 +1,29 @@
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrr}
+\toprule
+Metric & $r$ & $\rho$ & RMSE$_{\text{raw}}$ & RMSE$_{\text{cal}}$ & over\% \\
+\midrule
+\multicolumn{6}{l}{\emph{Unsupervised, French-capable}}\\
+BERTScore-CamemBERTv2 & 0.291$_{\pm0.09}$ & 0.326 & 2.62 & 2.36 & 49.3 \\
+BERTScore-CamemBERTv2-Recall & 0.352$_{\pm0.12}$ & 0.398 & 2.59 & 2.30 & 47.2 \\
+BERTScore-FlauBERT & 0.482$_{\pm0.08}$ & 0.459 & 2.16 & 2.12 & 49.4 \\
+LaBSE & 0.409$_{\pm0.06}$ & 0.402 & 2.33 & 2.21 & 47.2 \\
+Sentence-CamemBERT & 0.296$_{\pm0.05}$ & 0.287 & 2.68 & 2.31 & 49.3 \\
+Para-mUSE-mpnet & 0.252$_{\pm0.08}$ & 0.266 & 2.88 & 2.35 & 47.2 \\
+mE5-base & 0.358$_{\pm0.08}$ & 0.356 & 2.52 & 2.26 & 48.0 \\
+NLI-fwd (no hallucination) & 0.368$_{\pm0.06}$ & 0.352 & 3.85 & 2.25 & 49.3 \\
+NLI-bwd (no omission) & 0.340$_{\pm0.09}$ & 0.355 & 3.70 & 2.28 & 46.9 \\
+NLI-bidirectional (min) & 0.395$_{\pm0.07}$ & 0.405 & 3.74 & 2.22 & 46.6 \\
+\midrule
+\multicolumn{6}{l}{\emph{Trivial surface features}}\\
+$-|\,|s|-|o|\,|$ (length difference) & 0.641$_{\pm0.04}$ & 0.624 & 3.25 & 1.85 & 47.0 \\
+Token Jaccard & 0.303$_{\pm0.06}$ & 0.331 & 3.34 & 2.34 & 48.0 \\
+Length ratio & 0.580$_{\pm0.05}$ & 0.560 & 3.43 & 1.97 & 49.1 \\
+Surface-Ridge (10 features, supervised) & 0.621$_{\pm0.05}$ & 0.588 & 1.89 & 1.89 & 45.8 \\
+\midrule
+\multicolumn{6}{l}{\emph{Prompted LLM judge}}\\
+LLM-judge (deepseek-chat, k=5) & 0.755$_{\pm0.05}$ & 0.753 & 2.93 & 1.57 & 43.9 \\
+\midrule
+\textbf{Human ceiling} (one annotator) & \textbf{0.597} & 0.620 & -- & 3.27 & -- \\
+\bottomrule
+\end{tabular}

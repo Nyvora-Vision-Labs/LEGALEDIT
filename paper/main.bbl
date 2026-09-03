@@ -1,0 +1,89 @@
+\begin{thebibliography}{17}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Bean et~al.(2025)Bean, Kearns, Romanou et~al.}]{bean2025construct}
+Andrew~M. Bean, Ryan~Othniel Kearns, Angelika Romanou, et~al. 2025.
+\newblock Measuring what matters: Construct validity in large language model benchmarks.
+\newblock In \emph{Advances in Neural Information Processing Systems 39 (NeurIPS) Datasets and Benchmarks Track}.
+
+\bibitem[{Beauchemin et~al.(2025)Beauchemin, Albert-Rochette, Khoury, and D{\'e}ziel}]{beauchemin2025judgebert}
+David Beauchemin, Michelle Albert-Rochette, Richard Khoury, and Pierre-Luc D{\'e}ziel. 2025.
+\newblock {JUDGEBERT}: Assessing legal meaning preservation between sentences.
+\newblock In \emph{Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing}, pages 92--118.
+
+\bibitem[{Beauchemin et~al.(2023)Beauchemin, Saggion, and Khoury}]{beauchemin2023meaningbert}
+David Beauchemin, Horacio Saggion, and Richard Khoury. 2023.
+\newblock {MeaningBERT}: assessing meaning preservation between sentences.
+\newblock \emph{Frontiers in Artificial Intelligence}, 6:1223924.
+
+\bibitem[{Chen and Eger(2023)}]{chen2023menli}
+Yanran Chen and Steffen Eger. 2023.
+\newblock {MENLI}: Robust evaluation metrics from natural language inference.
+\newblock \emph{TACL}, 11:804--825.
+
+\bibitem[{Deutsch et~al.(2021)Deutsch, Dror, and Roth}]{deutsch2021statistical}
+Daniel Deutsch, Rotem Dror, and Dan Roth. 2021.
+\newblock A statistical analysis of summarization evaluation metrics using resampling methods.
+\newblock \emph{TACL}, 9:1132--1146.
+
+\bibitem[{Enguehard et~al.(2025)Enguehard, Van~Ermengem, Atkinson et~al.}]{enguehard2025lemaj}
+Joseph Enguehard, Morgane Van~Ermengem, Kate Atkinson, et~al. 2025.
+\newblock {LeMAJ} (legal {LLM}-as-a-judge): Bridging legal reasoning and {LLM} evaluation.
+\newblock In \emph{Proceedings of the Natural Legal Language Processing Workshop 2025}, pages 318--337.
+
+\bibitem[{Graham and Baldwin(2014)}]{graham2014williams}
+Yvette Graham and Timothy Baldwin. 2014.
+\newblock Testing for significance of increased correlation with human judgment.
+\newblock In \emph{EMNLP}.
+
+\bibitem[{Hariri and Ho(2025)}]{hariri2025statutory}
+Emaan Hariri and Daniel~E. Ho. 2025.
+\newblock {AI} for statutory simplification: A comprehensive state legal corpus and labor benchmark.
+\newblock In \emph{Proceedings of the Twentieth International Conference on Artificial Intelligence and Law (ICAIL)}.
+
+\bibitem[{Krippendorff(2004)}]{krippendorff2004content}
+Klaus Krippendorff. 2004.
+\newblock \emph{Content Analysis: An Introduction to Its Methodology}.
+\newblock Sage.
+
+\bibitem[{Laurer et~al.(2024)Laurer, van Atteveldt, Casas, and Welbers}]{laurer2024nli}
+Moritz Laurer, Wouter van Atteveldt, Andreu Casas, and Kasper Welbers. 2024.
+\newblock Less annotating, more classifying: Addressing the data scarcity issue of supervised machine learning with deep transfer learning and {BERT-NLI}.
+\newblock \emph{Political Analysis}, 32(1):84--100.
+
+\bibitem[{Magesh et~al.(2025)Magesh, Surani, Dahl, Suzgun, Manning, and Ho}]{magesh2025hallucinationfree}
+Varun Magesh, Faiz Surani, Matthew Dahl, Mirac Suzgun, Christopher~D. Manning, and Daniel~E. Ho. 2025.
+\newblock Hallucination-free? {A}ssessing the reliability of leading {AI} legal research tools.
+\newblock \emph{Journal of Empirical Legal Studies}, 22(2):216--242.
+
+\bibitem[{Mujahid et~al.(2026)Mujahid, Wright, and Augenstein}]{mujahid2026stress}
+Zain~Muhammad Mujahid, Dustin Wright, and Isabelle Augenstein. 2026.
+\newblock Stress testing factual consistency metrics for long-document summarization.
+\newblock In \emph{Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics}.
+
+\bibitem[{Pacchiardi et~al.(2024)Pacchiardi, Tesic, Cheke, and Hern{\'a}ndez-Orallo}]{pacchiardi2024cleverhans}
+Lorenzo Pacchiardi, Marko Tesic, Lucy~G. Cheke, and Jos{\'e} Hern{\'a}ndez-Orallo. 2024.
+\newblock Leaving the barn door open for {C}lever {H}ans: Simple features predict {LLM} benchmark answers.
+\newblock \emph{arXiv preprint arXiv:2410.11672}.
+
+\bibitem[{Sulem et~al.(2018)Sulem, Abend, and Rappoport}]{sulem2018bleu}
+Elior Sulem, Omri Abend, and Ari Rappoport. 2018.
+\newblock {BLEU} is not suitable for the evaluation of text simplification.
+\newblock In \emph{EMNLP}, pages 738--744.
+
+\bibitem[{Xu and Jurgens(2026)}]{xu2026disagreement}
+Yinuo Xu and David Jurgens. 2026.
+\newblock Beyond consensus: Perspectivist modeling and evaluation of annotator disagreement in {NLP}.
+\newblock \emph{arXiv preprint arXiv:2601.09065}.
+
+\bibitem[{Yang et~al.(2026)Yang, Levy, Goldberg, and Wallace}]{yang2026compared}
+Zihao Yang, Mosh Levy, Yoav Goldberg, and Byron~C. Wallace. 2026.
+\newblock Compared to what? {B}aselines and metrics for counterfactual prompting.
+\newblock In \emph{Conference on Language Modeling (COLM)}.
+
+\bibitem[{Zhang et~al.(2020)Zhang, Kishore, Wu, Weinberger, and Artzi}]{zhang2019bertscore}
+Tianyi Zhang, Varsha Kishore, Felix Wu, Kilian~Q Weinberger, and Yoav Artzi. 2020.
+\newblock {BERTScore}: Evaluating text generation with {BERT}.
+\newblock In \emph{ICLR}.
+
+\end{thebibliography}

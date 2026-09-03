@@ -1,0 +1,29 @@
+\begin{thebibliography}{5}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Beauchemin et~al.(2025)Beauchemin, Albert-Rochette, Khoury, and D{\'e}ziel}]{beauchemin2025judgebert}
+David Beauchemin, Michelle Albert-Rochette, Richard Khoury, and Pierre-Luc D{\'e}ziel. 2025.
+\newblock {JUDGEBERT}: Assessing legal meaning preservation between sentences.
+\newblock In \emph{Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing}, pages 92--118.
+
+\bibitem[{Graham and Baldwin(2014)}]{graham2014williams}
+Yvette Graham and Timothy Baldwin. 2014.
+\newblock Testing for significance of increased correlation with human judgment.
+\newblock In \emph{EMNLP}.
+
+\bibitem[{Koenker and Bassett~Jr(1978)}]{koenker1978regression}
+Roger Koenker and Gilbert Bassett~Jr. 1978.
+\newblock Regression quantiles.
+\newblock \emph{Econometrica}, 46(1):33--50.
+
+\bibitem[{Peterson et~al.(2019)Peterson, Battleday, Griffiths, and Russakovsky}]{peterson2019human}
+Joshua~C Peterson, Ruairidh~M Battleday, Thomas~L Griffiths, and Olga Russakovsky. 2019.
+\newblock Human uncertainty makes classification more robust.
+\newblock In \emph{ICCV}.
+
+\bibitem[{Uma et~al.(2021)Uma, Fornaciari, Hovy, Paun, Plank, and Poesio}]{uma2021learning}
+Alexandra~N Uma, Tommaso Fornaciari, Dirk Hovy, Silviu Paun, Barbara Plank, and Massimo Poesio. 2021.
+\newblock Learning from disagreement: A survey.
+\newblock \emph{JAIR}, 72:1385--1470.
+
+\end{thebibliography}

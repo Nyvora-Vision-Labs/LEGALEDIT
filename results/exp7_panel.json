@@ -1,0 +1,134 @@
+{
+  "configs": {
+    "chat (K=1)": {
+      "r_cal_mean": 0.6190587207474425,
+      "r_cal_sd": 0.06612081189297056,
+      "r_full": 0.6112780734684115,
+      "mean_rating": 9.128378378378379,
+      "identical": 10.0,
+      "legaledit": 6.22,
+      "unrelated": 1.1,
+      "margin_frac": 0.4247191011235955,
+      "discrim": 0.79,
+      "asym": 3.34375
+    },
+    "reasoner (K=1)": {
+      "r_cal_mean": 0.5797489227900405,
+      "r_cal_sd": 0.11545278107365126,
+      "r_full": 0.6112111685062277,
+      "mean_rating": 8.538461538461538,
+      "identical": 10.0,
+      "legaledit": 7.12,
+      "unrelated": 1.0,
+      "margin_frac": 0.32,
+      "discrim": 0.87,
+      "asym": 3.791666666666667
+    },
+    "chat v1 (rubric, FR)": {
+      "r_cal_mean": 0.6865362587893725,
+      "r_cal_sd": 0.07542225021214913,
+      "r_full": 0.6664639244226926,
+      "mean_rating": 9.13973063973064,
+      "identical": 10.0,
+      "legaledit": 6.255,
+      "unrelated": 1.095,
+      "margin_frac": 0.42055025266704105,
+      "discrim": 0.82,
+      "asym": 3.244791666666667
+    },
+    "chat v2 (rubric, EN)": {
+      "r_cal_mean": 0.7273601965348039,
+      "r_cal_sd": 0.04136603737044384,
+      "r_full": 0.7252134256392362,
+      "mean_rating": 8.483164983164983,
+      "identical": 10.0,
+      "legaledit": 4.84,
+      "unrelated": 1.0,
+      "margin_frac": 0.5733333333333334,
+      "discrim": 0.88,
+      "asym": 3.6302083333333335
+    },
+    "chat v3 (no taxonomy)": {
+      "r_cal_mean": 0.7581674618255752,
+      "r_cal_sd": 0.031773407448560956,
+      "r_full": 0.7569006664754291,
+      "mean_rating": 8.077441077441078,
+      "identical": 10.0,
+      "legaledit": 3.825,
+      "unrelated": 1.015,
+      "margin_frac": 0.6872565386755705,
+      "discrim": 0.89,
+      "asym": 4.026041666666667
+    }
+  },
+  "rules": {
+    "chat (K=1)": {
+      "modal_permission_to_obligation": 7.84375,
+      "modal_obligation_to_permission": 4.5,
+      "condition_unless_to_if": 5.0,
+      "amount_x10": 6.0,
+      "connective_or_to_and": 7.0,
+      "scope_all_to_some": 8.6,
+      "party_insurer_to_insured": 4.8,
+      "negation_drop": 1.1111111111111112,
+      "party_insured_to_insurer": 5.5,
+      "vehicle_class": 9.5,
+      "connective_and_to_or": 8.428571428571429
+    },
+    "reasoner (K=1)": {
+      "modal_permission_to_obligation": 9.125,
+      "modal_obligation_to_permission": 5.333333333333333,
+      "condition_unless_to_if": 9.333333333333334,
+      "amount_x10": 9.0,
+      "connective_or_to_and": 6.333333333333333,
+      "scope_all_to_some": 9.0,
+      "party_insurer_to_insured": 5.8,
+      "negation_drop": 1.0,
+      "party_insured_to_insurer": 5.0,
+      "vehicle_class": 8.5,
+      "connective_and_to_or": 9.0
+    },
+    "chat v1 (rubric, FR)": {
+      "modal_permission_to_obligation": 7.640625,
+      "modal_obligation_to_permission": 4.395833333333333,
+      "condition_unless_to_if": 5.5,
+      "amount_x10": 7.0,
+      "connective_or_to_and": 7.333333333333333,
+      "scope_all_to_some": 8.65,
+      "party_insurer_to_insured": 5.4,
+      "negation_drop": 1.7222222222222223,
+      "party_insured_to_insurer": 5.25,
+      "vehicle_class": 9.75,
+      "connective_and_to_or": 8.142857142857142
+    },
+    "chat v2 (rubric, EN)": {
+      "modal_permission_to_obligation": 5.984375,
+      "modal_obligation_to_permission": 2.3541666666666665,
+      "condition_unless_to_if": 5.833333333333333,
+      "amount_x10": 4.0,
+      "connective_or_to_and": 6.5,
+      "scope_all_to_some": 8.15,
+      "party_insurer_to_insured": 4.5,
+      "negation_drop": 1.0555555555555556,
+      "party_insured_to_insurer": 4.0,
+      "vehicle_class": 6.0,
+      "connective_and_to_or": 7.642857142857143
+    },
+    "chat v3 (no taxonomy)": {
+      "modal_permission_to_obligation": 5.734375,
+      "modal_obligation_to_permission": 1.7083333333333333,
+      "condition_unless_to_if": 3.6666666666666665,
+      "amount_x10": 2.1666666666666665,
+      "connective_or_to_and": 3.8333333333333335,
+      "scope_all_to_some": 4.75,
+      "party_insurer_to_insured": 1.3,
+      "negation_drop": 1.0555555555555556,
+      "party_insured_to_insurer": 3.25,
+      "vehicle_class": 6.75,
+      "connective_and_to_or": 6.5
+    }
+  },
+  "n_edits": 100,
+  "subsample_seed": 11,
+  "spend": 1.3245
+}

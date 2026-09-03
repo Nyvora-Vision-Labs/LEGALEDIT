@@ -1,0 +1,510 @@
+\documentclass[11pt]{article}
+% Numbered citations: [1], [2] in the text and a numbered reference list.
+% acl.sty loads natbib itself, so the style options have to be passed to the
+% package before that happens.
+\PassOptionsToPackage{numbers,square,comma,sort&compress}{natbib}
+\usepackage[preprint]{acl}
+
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{xcolor}
+% acl.sty suppresses the indent on the first paragraph after a heading (the
+% negative beforeskip in its \@startsection calls). indentfirst restores it, so
+% every paragraph in the document starts the same way.
+\usepackage{indentfirst}
+\setlength{\parindent}{0.2in}
+
+% acl.sty defines the bibliography as a list with no room for a label, which
+% suits its author-year default but hides the numbers the [n] citations point
+% at. Same layout, with the label restored.
+\makeatletter
+\renewcommand\bibnumfmt[1]{[#1].}
+\def\thebibliography#1{\vskip\parskip%
+\vskip\baselineskip%
+\def\baselinestretch{1}%
+\ifx\@currsize\normalsize\@normalsize\else\@currsize\fi%
+\vskip-\parskip%
+\vskip-\baselineskip%
+\section*{References\@mkboth
+ {References}{References}}\list
+ {}{\settowidth{\labelwidth}{\bibnumfmt{#1}}%
+ \setlength{\leftmargin}{\labelwidth}\addtolength{\leftmargin}{\labelsep}%
+ \setlength{\itemindent}{0pt}}
+ \def\newblock{\hskip .11em plus .33em minus -.07em}
+ \sloppy\clubpenalty4000\widowpenalty4000
+ \sfcode`\.=1000\relax}
+\let\endthebibliography=\endlist
+\makeatother
+
+\input{numbers}
+
+\title{Supplementary Material\\\textsc{LegalEdit}: A Dissociation Diagnostic for\\Legal Meaning Preservation Metrics}
+
+\author{Gaurab Baral \\
+  University of Cincinnati \\
+  \texttt{baralgb@mail.uc.edu}}
+
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\raggedbottom
+
+\begin{document}
+\maketitle
+
+\noindent This document collects the tables, figures and secondary analyses
+referred to in \textsc{LegalEdit}: A Dissociation Diagnostic for Legal Meaning
+Preservation Metrics. Numbers with an S prefix are defined here; section, table
+and figure numbers without one refer to the main paper. Everything here comes
+from the same pipeline and the same released result files.
+
+\appendix
+
+
+\section{Supplementary Tables and Figures}
+\label{app:extra}
+
+\begin{figure}[t]\centering
+\IfFileExists{figs/challenge.pdf}{\includegraphics[width=\columnwidth]{figs/challenge}}{\fbox{\parbox{0.9\columnwidth}{\centering\vspace{2em}[figure pending]\vspace{2em}}}}
+\caption{\textsc{LegalEdit}. For each metric the grey bar spans its score on an
+unrelated pair (dark circle) to its score on an identical pair (blue circle):
+its full working range. The red diamond is where it places a sentence whose
+legal force has been reversed by a single word. A metric that measured legal
+meaning would put the diamond at the left end. Every similarity-based metric
+puts it at the right, hard against the identical pair. Only the four scorers
+above the dashed rule, the three NLI variants and the prompted judge, move it
+appreciably. Metric names are abbreviated; Table~1 of the main paper
+gives them in full, with the margin column repeated at the right here.}
+\label{fig:challenge}
+\end{figure}
+
+\begin{table*}[t]\centering\small
+\input{tables/baselines}
+\caption{Calibrated comparison on the \textsc{FrJudge} test split, mean over
+10 seeds. RMSE$_{\text{raw}}$ is the decimal-scaling protocol in current use;
+RMSE$_{\text{cal}}$ fits an isotonic map on the training split. $r$ and $\rho$
+are both computed after calibration; being monotone, the map leaves $\rho$
+almost unchanged (at most $\isoDeltaRho$) but shifts $r$ by up to
+$\isoDeltaR$.}
+\label{tab:baselines}
+\end{table*}
+
+
+
+\begin{table}[t]\centering\small
+\input{tables/examples}
+\caption{\textsc{LegalEdit} samples, one per perturbation rule, with the edited
+span in bold. Each remains fluent and statutory in register, shares almost all
+of its tokens with the original, and states a different rule of law.}
+\label{tab:examples}
+\end{table}
+
+\begin{table}[t]\centering\small
+\input{tables/agreement}
+\caption{Krippendorff's $\alpha$ on \textsc{FrJudge}. Legal meaning is an
+ordinal ten-point scale, for which the nominal coefficient is not the
+appropriate measure. \emph{prev.}\ is the value reported by
+\citet{beauchemin2025judgebert}.}
+\label{tab:agreement}
+\end{table}
+
+\begin{table}[t]\centering\small
+\input{tables/ceiling}
+\caption{Leave-one-annotator-out ceiling on \textsc{FrJudge} ($n=297$).
+A single expert predicts the consensus of the other four at $r=\ceilR$.}
+\label{tab:ceiling}
+\end{table}
+
+\begin{figure*}[t]\centering
+\IfFileExists{figs/disagreement.pdf}{\includegraphics[width=\textwidth]{figs/disagreement}}{\fbox{\parbox{0.9\textwidth}{\centering\vspace{2em}[figure pending]\vspace{2em}}}}
+\caption{Disagreement in \textsc{FrJudge}. (a) The five annotators form two
+populations: B, C, D (blue) rate legal preservation about three points higher
+than A and E (red) across the whole corpus. (b) Sorted within-item range; the
+median item spans \medianRange\ points of a ten-point scale. (c) A single
+annotator predicts the consensus of the other four at $r=\ceilR$ (bar; whiskers
+give the range over the five held-out annotators), and the best-agreeing pair
+reaches $r=\bestPairR$.}
+\label{fig:disagree}
+\end{figure*}
+
+\begin{table*}[t]\centering\small
+\input{tables/judge}
+\caption{The prompted judge across models and prompt wordings, on a fixed
+$100$-edit subsample of \textsc{LegalEdit} so the reasoner stays affordable.
+The first row is the \textsc{FrJudge} rubric in French, the second the same
+rubric in English over the same French text, and the third a bare instruction
+with the error taxonomy removed. The three wordings are drawn at $K{=}2$ and the
+two capability rows at $K{=}1$; within a row every column comes from the same
+draw, so the wordings are comparable with each other and the two models with
+each other, but a row is not comparable with the $K{=}5$ figures quoted
+elsewhere. \emph{asym.} is the mean score on a \emph{peut}$\to$\emph{doit}
+edit minus that on a \emph{doit}$\to$\emph{peut} edit; both reverse the law.}
+\label{tab:judge}
+\end{table*}
+
+\paragraph{The judge as a sixth annotator, and the combination attempts.}
+Because the judge emits on the annotators' scale it can be placed inside the
+panel rather than only beside the metrics. Its mean rating is
+$\judgeMeanRating$, against a human panel spanning $\strictMean$ to
+$\lenientMean$, so it is more lenient than any human and far less dispersed. Yet
+its mean correlation with the five annotators is $\judgeHumanR$, higher than the
+mean human--human correlation of $\humanHumanR$. Adding it as a sixth coder
+nonetheless \emph{lowers} ordinal $\alpha$ from $\alphaOrd$ to
+$\judgeAlphaPanel$: it tracks the consensus without belonging to the
+distribution. Against its own five samples it is far more self-consistent than
+the humans are with each other ($\alpha=\judgeAlphaSelf$ versus $\alphaOrd$),
+and averaging the samples is not cosmetic, since correlation against the human
+mean climbs from $\judgeKone$ at $K=1$ to $\judgeKfive$ at $K=5$. Its
+rubric-level explanations show the pattern Section~6.3 of the main paper describes: on
+identical pairs it reports an error in $\judgeErrIdent\%$ of samples, and on
+\textsc{LegalEdit} it reports some error in $\judgeErrEdit\%$ and names
+\emph{incohérence}, the correct type for a meaning-reversing edit, in
+$\judgeErrIncoh\%$. On the capability and combination controls: substituting a
+reasoning model (\texttt{deepseek-reasoner}) under the identical rubric and
+items gives $r=\reasonerR$ against $\chatKoneR$ and margin $\reasonerMargin$
+against $\chatKoneMargin$, so the shortfall is not a matter of the model
+thinking harder; and of six rules for merging the judge with bidirectional NLI,
+every calibration fitted on the training split alone and the diagnostic never
+entering the fit, none beats both parents on both axes. The best, a weighted
+blend at $w=\hybridW$, reaches $r=\hybridR$ and margin $\hybridMargin$, gains
+smaller than the redraw-to-redraw variation. We report this as a negative result
+rather than proposing a metric. The full protocol is $\judgeCalls$ calls costing
+\$$\judgeCost$.
+
+
+\paragraph{Margin by perturbation rule.}
+Table~\ref{tab:rules} gives the per-rule breakdown that Section~5 of the main paper
+summarises, averaged over metrics. Two details behind the party-swap figure
+quoted there are worth stating. The two directions of the swap draw mean margins
+of $0.046$ and $-0.005$ on $11$ and $3$ items respectively, which is why we pool
+them rather than report either cell on its own: over all $\nParty$ party-swap
+items the seven similarity metrics spend $\partyMargin$ of their range, with a
+per-metric spread of $\partyMarginLo$--$\partyMarginHi$, against
+$\ruleMarginMeanSim$ for those same seven metrics across all rules. The
+contrast is milder on this restricted basis than the all-metric figures in
+Section~5 of the main paper suggest, because the similarity family has almost no
+range to spend on any rule. We also tested whether
+the residual ordering across rules is explained by the size of the edit in
+characters, and found no relationship ($r=\ruleSizeR$ over the \nRules\ rules,
+$95\%$ CI $[\ruleSizeLo, \ruleSizeHi]$). With \nRules\ rules of unequal
+frequency the ordering is not itself well determined, so we report it
+descriptively; the robust observation is the ceiling on detectability, not the
+ranking.
+
+\begin{table}[t]\centering\small
+\input{tables/rules}
+\caption{\textsc{LegalEdit} margin by perturbation rule, averaged over the
+metrics in Table~1 of the main paper. \emph{worst metric} is the lowest margin
+any single metric assigns that rule. A margin of $1$ would mean the metric
+treats a legally flipped sentence exactly as it treats an unrelated one.}
+\label{tab:rules}
+\end{table}
+
+\section{Training Variants in Full}
+\label{app:variants}
+\label{sec:objectives}
+
+The protocol so far audits scorers that already exist. It also has implications
+for how one would fit a new one, and this section tests two of them. The first
+follows from Section~6.1 of the main paper: the gold label is the mean of five ratings
+whose median spread is \medianRange\ points, so fitting a scalar regressor to
+that mean asks the model to predict a quantity none of the annotators asserted,
+and rewards predicting the centre. The second follows from
+Section~3 of the main paper: if a diagnostic identifies a deficiency, the obvious
+response is to train against it.
+
+The seven configurations share an encoder (CamemBERTv2-base), splits, schedule
+and seeds, and differ only in the target and the loss.
+
+\begin{itemize}\itemsep2pt
+\item \textbf{Scalar} (the conventional objective): MSE against the mean rating.
+\item \textbf{Distributional}: a ten-way head trained with KL divergence against
+      the empirical rating histogram, following \citet{uma2021learning} and
+      \citet{peterson2019human}. The reported score is the distribution's
+      expectation, so it is directly comparable, but the model additionally
+      exposes its spread.
+\item \textbf{Annotator-aware}: five regression heads, one per annotator,
+      averaged at inference. This lets the model represent the lenient and
+      strict populations of Section~6.1 of the main paper separately instead of
+      averaging them away.
+\item \textbf{Quantile}: a pinball loss \citep{koenker1978regression} at
+      $\tau=0.25$. The asymmetry is deliberate. A metric that
+      \emph{overshoots} the human rating is permissive of bad simplifications,
+      while one that undershoots is merely strict, and in a legal setting those
+      errors are not symmetric; a quantile objective encodes that preference in
+      the loss rather than hoping it emerges.
+\item \textbf{Multi-task}: the scalar head plus an auxiliary characterization
+      head, trained against the majority vote of the five annotators, which
+      spans 17 of the rubric's 18 classes (the eighteenth never carries a
+      majority). The characterization labels are collected in \textsc{FrJudge}
+      and then discarded; since the published rubric has annotators characterize
+      a clause \emph{before} scoring it, the label plausibly carries information
+      about the score.
+\item \textbf{DA}: the scalar objective with the identical/unrelated
+      augmentation in current use added to the training mixture, unchanged.
+\item \textbf{DA+LegalEdit}: \textbf{DA} plus minimally-edited negatives
+      generated from \textsc{FrJudge} originals by the rules of
+      Section~4 of the main paper, disjoint from the diagnostic's own sentences.
+\end{itemize}
+
+\paragraph{Evaluation protocol.} Correlation and RMSE are computed \emph{only}
+on the human-annotated test split, never on a split containing augmentation.
+This matters: adding identical pairs (label 10) and unrelated pairs (label 1) to
+the evaluation set inflates label variance at the extremes, which raises Pearson
+$r$ for every metric without any improvement in judgment. A table that does not
+separate the two shows the signature clearly, in that a metric's $r$ and its
+RMSE improve and worsen together rather than moving as one. Augmentation here
+affects training only; the three diagnostic regimes are reported separately as
+pass rates.
+
+\begin{table*}[t]\centering\small
+\input{tables/models}
+\caption{Trained metrics, mean over 5 seeds, evaluated on the human-annotated
+test split only. \emph{ident.}\ and \emph{unrel.}\ are the two sanity checks in
+current use; \textsc{LegalEdit} false-acceptance is the share of legally flipped
+pairs still scored $\geq 7$ (``accurate'' under the published rubric). The
+margin is the quantity defined in Section~3 of the main paper. It is shown as `--'
+where a model places the identical and unrelated probes within one point of
+each other, because a model with no working range has none to spend on the
+edit.}
+\label{tab:models}
+\end{table*}
+
+\paragraph{Disagreement-aware objectives buy stability, not accuracy.}
+Table~\ref{tab:models} reports the grid, and the first result is a negative one:
+no training target moves the correlation by more than the scalar baseline's own
+spread across seeds ($\pm0.082$), which is itself smaller than the
+$\mindetect$ gap Section~6.2 of the main paper showed to be resolvable on an
+$\testN$-item split. The differences that survive are in the other columns. The
+distributional head is markedly steadier than the scalar head it replaces
+($\pm0.029$ against $\pm0.082$ over the same five seeds), reaches the best RMSE
+in the table ($1.99$), and roughly doubles the rank correlation ($\rho=0.578$
+against $0.280$), which is what one expects from a target carrying the shape of
+the rating distribution and not only its mean. The quantile head does precisely
+what it was asked to do: it overshoots the human label on $9.9\%$ of test items
+against $25.4\%$ for the scalar head, the lowest rate of any model here. The
+risk asymmetry a legal setting calls for can therefore be written into the loss
+rather than hoped for, and it costs nothing in correlation.
+
+\paragraph{Trained constraints do not cross a change of document.}
+Every model in Table~\ref{tab:models} scores $0\%$ on the identical-pair check,
+the two augmented ones included, although identical pairs are in their training
+mixture; the augmented models pass the unrelated check on $77\%$ and $69\%$ of
+probes and the un-augmented models on none. The asymmetry is the one our probe
+design predicts. Our unrelated probes are drawn from the same two statutes the
+training mixture draws its unrelated pairs from, so passing that check is an
+in-distribution result; our identical probes are statutory sentences while the
+mixture's identical pairs are \textsc{FrJudge} clauses, so passing that one
+would require generalising across source documents, and no model does. The same
+holds for the diagnostic: \textsc{DA+LegalEdit}, trained on minimally-edited
+negatives, reaches a margin of $0.051$ against $\maxMargin$ for untrained
+bidirectional NLI, its negatives generated from \textsc{FrJudge} originals and
+its probes from statutes. Training on a constraint buys satisfaction of it in
+distribution and nothing at all across a change of source.
+
+The same separation explains the augmented mixtures' correlations, which are the
+clearest effect in the table: \textsc{DA} loses $0.350$ against the un-augmented
+baseline and \textsc{DA+LegalEdit} $0.420$, on five seeds out of five in both
+cases, and \textsc{DA} varies by $\pm0.254$ across seeds, reaching $r=-0.188$ on
+one of them.
+
+One column of Table~\ref{tab:models} should be read with care.
+\textsc{LegalEdit} false-acceptance is the share of flipped pairs still scored
+$\geq 7$, so it is confounded with where a model puts its predictions overall.
+The distributional head's $69\%$ reflects a head that scores high in general
+(its identical probes average $7.22$), and the $0\%$ of the scalar heads
+reflects models that score low on everything, not models that reject the edit.
+
+\section{Williams Tests Against the Length Baseline}
+\label{app:williams}
+
+The test split holds $\testN$ items, at which size the smallest correlation
+reliably distinguishable from $r=0.46$ at $80\%$ power is $\mindetect$.
+The ten unsupervised metrics and the length feature of
+Table~\ref{tab:baselines} correlate with the \emph{same} human label on the
+\emph{same} $297$ items, and with each other, so the comparison is dependent and a two-sample test on
+Fisher-transformed correlations would be anticonservative. Table~\ref{tab:significance}
+reports the Williams test \citep{graham2014williams}, which corrects for that
+dependence.
+
+\begin{table*}[t]\centering\small
+\input{tables/significance}
+\caption{Williams tests against the trivial length baseline
+$\ell = -|\,|s|-|o|\,|$, which reaches $r=0.613$ with the human label $h$ over
+all $297$ items. $r(m,\ell)$ is each metric's correlation with the length
+feature itself, the dependence the test corrects for. Positive $t$ favours
+$\ell$.}
+\label{tab:significance}
+\end{table*}
+
+\section{What Survives a Change of Document}
+\label{app:grouped}
+
+A metric meta-evaluation that never changes source document cannot distinguish
+legal sensitivity from familiarity with a form. We therefore add an
+out-of-domain split. \textsc{FrJudge} clauses come from identifiable source
+documents, which we recover from the raw export. Random splitting lets clauses
+from the same insurance form appear in both training and test, and insurance
+forms are highly templated. We compare the standard random split against a
+document-grouped split in which no source document straddles the boundary
+(Table~\ref{tab:models_grouped}); the difference estimates how much of the
+reported performance is form-specific. We rerun three of the seven
+configurations of Table~\ref{tab:models} on that split: the scalar baseline and
+the two augmented mixtures. The remaining four differ from the baseline in what
+they are trained to predict rather than in what they can exploit about a source
+form, so the leakage they are exposed to is the same.
+
+The corpus makes that harder than it sounds. Its 297 pairs come from only 21
+source forms and the three largest hold 71\% of them, so the obvious
+construction, sweeping the forms in random order and cutting at the cumulative
+60/70\% marks, lets a single large form overshoot a boundary and starve the
+split behind it. On seeds 42--46 that procedure returns test splits of 16, 87,
+30, 0 and 88 pairs, one of them empty and one far too small to carry a
+correlation. We therefore choose the form-to-split assignment by a short local
+search over total deviation from the target sizes. Thousands of assignments hit
+$178/30/89$ exactly, so each seed still selects a genuinely different partition
+while every split matches the random-split sizes of Table~\ref{tab:models} pair
+for pair, and the two tables differ only in which forms are held out. One
+limitation is structural rather than incidental: the largest form is 37\% of the
+corpus, larger than the 30\% test quota, so it always falls in training and the
+grouped test set is always drawn from the remaining 188 pairs.
+
+\begin{table*}[t]\centering\small
+\input{tables/models_grouped}
+\caption{Document-grouped split: no source form appears in both training and
+test. Columns are as in Table~\ref{tab:models}, and the splits are size-matched
+to it ($178/30/89$). The untrained NLI reference is recomputed on the grouped
+splits rather than carried over, since a corpus-level correlation is not
+comparable to a document-grouped one; the human ceiling is a property of the
+annotations and does not depend on the split.}
+\label{tab:models_grouped}
+\end{table*}
+
+\paragraph{The comparison does not resolve.} The scalar baseline's correlation
+falls from $0.542$ on the random split to $0.454$ on the grouped one, a drop of
+$0.088$ that is in the direction leakage would predict. It does not survive
+inspection. The per-seed differences are $+0.169$, $-0.097$, $-0.416$, $-0.182$
+and $+0.086$: two of the five seeds \emph{improve} under the harder split, and
+the grouped spread ($\pm0.143$) is wider than the gap itself. The two augmented
+mixtures move by $-0.002$ and $+0.026$, which is to say not at all. As a
+control, the untrained NLI reference is fitted to nothing and should be
+indifferent to how the corpus is partitioned; it moves from $0.395$ to $0.391$,
+confirming that the two splits are otherwise comparable and that the variance
+above is the models' and not the split's.
+
+We therefore do not claim that document-level leakage inflates the correlations
+of Section~\ref{sec:objectives}, and we hold our own evidence to the standard
+Section~6.2 of the main paper applies elsewhere. What we can say is narrower and, we
+think, more useful to anyone planning a successor corpus: \textsc{FrJudge} is
+too small and too concentrated to answer the question. Its grouped test split is
+always drawn from the $188$ pairs the largest form leaves behind, at which size
+the seed-to-seed variation swamps the effect being measured. A corpus intended
+to support an out-of-domain claim needs its documents spread far more evenly
+than three forms holding $71\%$ of the data, and this is the aspect of the
+design we would change first.
+
+\section{Stratifying by Length Change}
+\label{app:buckets}
+
+We further break the test predictions down by the magnitude of the length change
+between original and simplification. If a metric's correlation is concentrated
+in the buckets where the simplification is much shorter, it is detecting
+deletion rather than legal change, the hypothesis raised in
+Section~6.2 of the main paper. Table~\ref{tab:buckets} reports Pearson $r$ inside each
+tercile of $|\,|s|-|o|\,|$. Within a tercile the length signal is largely held
+constant, so a metric that retains its correlation there is using something
+other than deletion; one whose correlation collapses was reading length all
+along. This is a weaker form of the same dissociation logic as
+Section~3 of the main paper: it holds a confound approximately fixed by conditioning
+rather than exactly fixed by construction.
+
+\begin{table}[t]\centering\small
+\input{tables/buckets}
+\caption{Correlation with the human label \emph{within} terciles of the
+absolute length change, pooling test predictions over seeds. Restricting to a
+tercile removes most of the length variance; a metric that measures legal
+meaning should degrade far less than one that measures deletion.}
+\label{tab:buckets}
+\end{table}
+
+The result qualifies Section~6.2 of the main paper in a way that is worth stating
+carefully, because it cuts against our own argument. The length feature's
+correlation is overwhelmingly a \emph{between}-tercile effect: pooled over the
+corpus it reaches $0.613$, but inside the small and medium terciles it falls to
+$0.243$ and $0.165$. Once items of comparable length change are compared with
+each other, knowing the length change tells you little. It recovers to $0.585$
+only in the tercile where the simplification is much shorter than the original,
+which is exactly where deletion is available to be detected. The neural
+baselines have the opposite profile: in the medium tercile, where the length
+feature retains almost nothing, \textsc{BERTScore} over FlauBERT holds $0.449$
+against a pooled $0.484$ and LaBSE rises to $0.532$ against a pooled $0.424$. The
+supervised surface ridge tracks the raw length feature bucket for bucket, which
+is what one would expect if it is largely a length model with extra terms. The
+small tercile is hard for everything, which we read as a floor effect rather
+than as a result: when the two sentences are close to the same length, none of
+these signals has much to go on.
+
+The honest reading is therefore narrower than ``legal meaning preservation is
+length preservation''. The corpus-level ranking is dominated by length, and any
+comparison that omits a length control will attribute to a metric what it should
+attribute to that confound. But the neural metrics are not \emph{only} reading
+length. Where the length signal is weakest, they are the ones that hold up, keeping or
+exceeding the correlation they had over the whole corpus. Whatever they are
+reading in that stratum, it is not the length change. What
+Section~5 of the main paper adds is that the residual signal they retain is still not
+legal sensitivity, since the same metrics move almost not at all when the law is
+changed and the length is held exactly fixed. The two analyses answer different
+questions, and a metric has to survive both.
+
+\section{Reproducibility}
+\label{app:repro}
+
+Every number we report is produced by a single pipeline that runs end to end
+on a laptop; the largest model involved is CamemBERTv2-base (112M parameters)
+and no GPU cluster is required. We release the experiment code at
+\url{https://github.com/Nyvora-Vision-Labs/LEGALEDIT}: the
+reconstruction of \textsc{FrJudge} from the raw export (which recovers annotator
+identity and source document, both dropped from the public JSONL), the
+document-grouped splits, the \textsc{LegalEdit} generator and scoring harness,
+and the result files behind every table.
+
+One caveat on exact reproduction: our training runs use Apple MPS kernels, which
+are not bitwise deterministic, so a fixed seed reproduces a run only
+approximately: repeat runs of the scalar configuration at seed $42$ differ in
+test-set $r$ by several hundredths, which is comparable to the spread across
+seeds. We therefore report means and standard deviations over five seeds and
+treat any difference smaller than that spread as unresolved, the same discipline
+Section~6.2 of the main paper asks of everyone else, applied to ourselves. Anyone
+reproducing this on CUDA should expect tighter agreement and correspondingly
+narrower error bars.
+
+Two further details matter for anyone reproducing the diagnostic. The first is
+what the probes share with training, which differs by regime and which we state
+precisely because conflating the two is one of the failure modes the protocol is
+meant to prevent. The \emph{identical} probe is built from statutory sentences
+(the Quebec Automobile Insurance Act and the Highway Safety Code) while the
+identical pairs in the \textsc{-DA} training mixture are built from
+\textsc{FrJudge}'s insurance-form clauses, so a model passes that probe only by
+generalising across source documents. The \textsc{LegalEdit} probe is likewise
+generated from statutory sentences, while the minimally-edited negatives added
+by the \textsc{DA+LegalEdit} variant are generated from \textsc{FrJudge}
+originals: same perturbation rules, disjoint sentences. The \emph{unrelated}
+probe is the weakest of the three in this respect: both it and the unrelated
+pairs in the training mixture are drawn from the same two statutes, under
+different random seeds, so a high unrelated pass rate for a \textsc{-DA} model
+should be read as in-distribution and we do not treat it as evidence of
+generalisation. Second, the ordinal Krippendorff coefficient we report is
+computed with the same library and the same reliability matrix as the nominal
+one, so the difference between $0.104$ and $\alphaOrd$ is attributable to the
+distance function alone.
+
+
+\bibliography{refs}
+
+\end{document}
