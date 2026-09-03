@@ -273,11 +273,20 @@ spread.
 
 ## Data and ethics
 
-`data/annotated.jsonl` is a copy of the upstream raw export and **contains the
-annotators' real first names**. `data.py` pseudonymises on load, and nothing in
-`results/` or `paper/` contains a name. If this pipeline is redistributed, run
-`src/pseudonymise_frjudge.py` over the data directory first. See `docs/ERRATA.md`,
-item 11.
+`data/annotated.jsonl` is a reconstruction of the upstream raw export with the
+annotators **already pseudonymised as A to E**, produced by
+`src/pseudonymise_frjudge.py`, which also coarsens the per-annotation timestamps
+to the day. The upstream export carries the annotators' real first names, and
+`docs/ERRATA.md` item 11 reports that to its authors. Nothing here, in the code,
+the results or the paper, carries a name: `data.py` derives the A to E labels
+from the tokens in the file rather than from a stored mapping, so pointing it at
+the upstream raw export reproduces exactly the same labels and the same numbers.
+Anyone redistributing a copy of the raw export should run the script over it
+first.
+
+Note that git history still contains the pre-pseudonymisation copy of this file.
+Removing it from history requires a rewrite and a force-push, which has not been
+done.
 
 The statutes LegalEdit is generated from are public legal texts. The perturbed
 sentences are deliberate misstatements of Quebec law, released as an evaluation

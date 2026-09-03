@@ -12,7 +12,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "..", "data")
 
 # real first names -> stable pseudonyms, assigned by sorted name for determinism
-_PSEUDO = {"Clara": "A", "Eve": "B", "Simon": "C", "William": "D", "Yanis": "E"}
+PSEUDONYMS = ["A", "B", "C", "D", "E"]
 
 
 def _read_concat_json(path):
@@ -30,10 +30,23 @@ def _read_concat_json(path):
     return out
 
 
-def _annotator(rec):
+def _raw_id(rec):
+    """The annotator token as the export writes it, name or pseudonym."""
     a = rec["_annotator_id"]
     m = re.match(r"legal_annotations_\w+?_\d+-(\w+)", a)
-    return _PSEUDO[m.group(1) if m else a]
+    return m.group(1) if m else a
+
+
+def _pseudonyms(rows):
+    """Map each annotator token to A-E, ordered by the token itself.
+
+    The released data/annotated.jsonl is already pseudonymised, so this is the
+    identity there. Pointed at the upstream raw export, which carries the
+    annotators' real first names, it reproduces the same A-E assignment that
+    pseudonymise_frjudge.py makes, so results are identical either way and no
+    name is ever hard-coded here.
+    """
+    return {n: PSEUDONYMS[i] for i, n in enumerate(sorted({_raw_id(r) for r in rows}))}
 
 
 def load_pairs():
@@ -44,6 +57,7 @@ def load_pairs():
           justifications {annot: str}, label (mean legal meaning).
     """
     rows = _read_concat_json(os.path.join(DATA, "annotated.jsonl"))
+    pseudo = _pseudonyms(rows)
     by_pair = collections.OrderedDict()
     for r in rows:
         k = (r["original"], r["simplified"])
@@ -53,7 +67,7 @@ def load_pairs():
                  source=r.get("meta", {}).get("source", ""),
                  ratings={}, simplicity={}, characterization={}, justifications={}),
         )
-        a = _annotator(r)
+        a = pseudo[_raw_id(r)]
         d["ratings"][a] = int(r["evaluation"])
         d["simplicity"][a] = r["difficulty_evaluation"]
         acc = r.get("accept") or []
