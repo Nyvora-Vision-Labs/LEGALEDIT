@@ -161,10 +161,10 @@ semantic metric we test; and the two orderings disagree at both extremes.
 
 \paragraph{Evaluating simplification.}
 Metrics borrowed from translation and summarisation transfer poorly to meaning
-preservation. \citet{sulem2018bleu} show BLEU does not correlate with it once
-sentence splitting is involved, the operation most characteristic of legal
-simplification, and embedding metrics \citep{zhang2019bertscore} capture
-semantic variability better but score consistently high across \emph{all}
+preservation. \citet{sulem2018bleu} show that BLEU does not correlate with it
+once sentence splitting is involved. Embedding metrics such as BERTScore
+\citep{zhang2019bertscore} capture semantic variability better, but as
+Section~\ref{sec:results} shows they score consistently high across \emph{all}
 alterations, penalising even substantial meaning changes too little. Trained
 metrics such as MeaningBERT \citep{beauchemin2023meaningbert} improve
 correlation on the corpora they are fitted to. \textsc{FrJudge}
@@ -178,8 +178,8 @@ outputs hides brittleness on targeted perturbations. Closest to us,
 that similarity-based metrics are not robust to meaning-changing edits while
 NLI-based metrics repair much of the gap, and \citet{mujahid2026stress} run the
 complementary experiment, holding meaning fixed and varying form. A usable
-metric must move on the first kind of edit and stay put on the second, and
-current metrics reliably do neither. \textsc{LegalEdit} adapts the method to a
+metric must move on the first kind of edit and stay put on the second.
+\textsc{LegalEdit} adapts the method to a
 domain where the perturbations are the exact operations that decide coverage
 disputes, so the inventory is organised by legal effect rather than by
 linguistic category; to our knowledge no prior challenge set targets legal
@@ -200,10 +200,10 @@ comparison. We follow \citet{deutsch2021statistical} and
 \citet{graham2014williams} on statistical practice, since these correlation
 estimates carry wide intervals and the Williams test is the appropriate one for
 dependent correlations. And we treat the five ratings per item as a distribution
-to be modelled rather than noise around a truth, as the perspectivist literature
-now does by default \citep{xu2026disagreement}: legal interpretation is a
-paradigm case, where disagreement between competent lawyers is the ordinary
-condition of the field rather than annotator error.
+to be modelled rather than noise around a truth, following the perspectivist
+turn \citet{xu2026disagreement} survey: legal interpretation is a paradigm case,
+where disagreement between competent lawyers is the ordinary condition of the
+field rather than annotator error.
 
 \section{What Would Validate a Legal Meaning Metric?}
 \label{sec:protocol}
@@ -573,9 +573,8 @@ feature outscores every semantic metric on the corpus and ranks last on the law.
 Our \textsc{LegalEdit} labels are definitional rather than annotated: we assert
 that changing \emph{doit} to \emph{peut} changes legal meaning, rather than
 having lawyers rate each perturbation. We think this is defensible for tier-1
-edits and report tier-2 shifts separately for exactly this reason, but a
-human-validated version would be stronger and a small expert study is the
-obvious next step. The perturbations are also single-edit and
+edits and report tier-2 shifts separately, but a human-validated version would
+be stronger and a small expert study is the obvious next step. The perturbations are also single-edit and
 template-generated, so a system could in principle be tuned to them without
 acquiring general legal sensitivity, which is why we treat \textsc{LegalEdit} as
 a necessary condition and not a benchmark to be optimised.
@@ -610,15 +609,16 @@ should be read with the sampling uncertainty of both in view.
 
 \textsc{FrJudge}'s five annotators are pseudonymised as A--E throughout, our
 released code pseudonymises annotator identifiers on load, and we ship the
-pseudonymisation script separately for anyone redistributing a reconstruction.
-Our results also strengthen a caution \citet{beauchemin2025judgebert} raise: a
-metric
-that cannot distinguish \emph{doit} from \emph{peut} must not gate whether a
-simplified clause is safe to publish, and the appropriate deployment is triage,
-the ranking of clauses for human review, rather than certification. Nothing here
+pseudonymisation script for anyone redistributing a reconstruction.
+\citet{beauchemin2025judgebert} caution that their metric informs a practitioner
+about legal meaning preservation rather than supplying a complete juridical
+analysis; our results sharpen that into a rule. A metric that cannot distinguish
+\emph{doit} from \emph{peut} must not gate whether a simplified clause is safe to
+publish, and the appropriate deployment is triage, the ranking of clauses for
+human review, rather than certification. Nothing here
 constitutes legal advice. The perturbed sentences are deliberate misstatements
-of Quebec law, are labelled as such in the distribution, and should not be
-quoted as statements of the law.
+of Quebec law, labelled as such in the distribution, and are not statements of
+the law.
 
 \bibliography{refs}
 
