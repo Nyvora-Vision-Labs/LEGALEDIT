@@ -1,4 +1,4 @@
-\begin{thebibliography}{17}
+\begin{thebibliography}{16}
 \providecommand{\natexlab}[1]{#1}
 
 \bibitem[{Bean et~al.(2025)Bean, Kearns, Romanou et~al.}]{bean2025construct}
@@ -35,11 +35,6 @@ Joseph Enguehard, Morgane Van~Ermengem, Kate Atkinson, et~al. 2025.
 Yvette Graham and Timothy Baldwin. 2014.
 \newblock Testing for significance of increased correlation with human judgment.
 \newblock In \emph{EMNLP}.
-
-\bibitem[{Hariri and Ho(2025)}]{hariri2025statutory}
-Emaan Hariri and Daniel~E. Ho. 2025.
-\newblock {AI} for statutory simplification: A comprehensive state legal corpus and labor benchmark.
-\newblock In \emph{Proceedings of the Twentieth International Conference on Artificial Intelligence and Law (ICAIL)}.
 
 \bibitem[{Krippendorff(2004)}]{krippendorff2004content}
 Klaus Krippendorff. 2004.
