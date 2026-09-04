@@ -3,7 +3,23 @@
 % acl.sty loads natbib itself, so the style options have to be passed to the
 % package before that happens.
 \PassOptionsToPackage{numbers,square,comma,sort&compress}{natbib}
-\usepackage[preprint]{acl}
+% acl.sty selects acl_natbib, which sorts the reference list alphabetically, so
+% under numeric citations the first work cited comes out as [10] rather than
+% [1]. acl_natbib_unsrt is that same style with its two SORT passes removed,
+% leaving the entries in order of first citation. BibTeX rejects a second
+% \bibstyle, so acl.sty's own choice has to be swallowed rather than overridden.
+\makeatletter
+\let\acl@saved@bibliographystyle\bibliographystyle
+\renewcommand\bibliographystyle[1]{}
+\makeatother
+% acl.sty ties the page-number footer to the class option: "preprint" prints
+% one, "final" does not. Everything else about the two is identical here.
+\usepackage[final]{acl}
+\makeatletter
+\let\bibliographystyle\acl@saved@bibliographystyle
+\makeatother
+\bibliographystyle{acl_natbib_unsrt}
+
 
 \usepackage{times}
 \usepackage{latexsym}
