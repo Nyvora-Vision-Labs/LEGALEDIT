@@ -1,4 +1,4 @@
-# LegalEdit: a dissociation diagnostic for legal meaning preservation metrics
+# LexFlip: a dissociation diagnostic for legal meaning preservation metrics
 
 A simplified legal clause either still says what the original said or it does
 not, and the automatic metrics used to check that cannot currently tell the
