@@ -309,8 +309,8 @@ def numbers():
     try:
         c = J("exp4_challenge.json")["rows"]
         mf = [v["margin_frac"] for v in c.values()]
-        n["maxMargin"] = f"{max(mf):.2f}"
-        n["meanMargin"] = f"{np.mean(mf):.2f}"
+        n["maxMargin"] = f"{max(mf):.3f}"
+        n["meanMargin"] = f"{np.mean(mf):.3f}"
         n["nMetricsChallenged"] = str(len(mf))
         n["minMargin"] = f"{min(mf):.3f}"
         # the similarity family: everything that is not an NLI variant, not one

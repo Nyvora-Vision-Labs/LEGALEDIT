@@ -90,9 +90,9 @@ clause drops a qualifier the reader may be uninsured. The 2024 decision in
 misstatement of its own bereavement-fare policy, established that the gap
 between what a document says and what an automated system says it says is
 legally cognisable. Nor is the scale hypothetical:
-\citet{hariri2025statutory} document a U.S. state claiming to have eliminated a
-third of its code with automated assistance and measure an F1 of $0.67$ for such
-systems, and \citet{magesh2025hallucinationfree} find that legal research tools
+\citet{hariri2025statutory} document a U.S.\ state claiming to have eliminated a
+third of its code with automated assistance and measure an F1 of $0.67$ for
+end-to-end automated pipelines, and \citet{magesh2025hallucinationfree} find that legal research tools
 marketed as having eliminated hallucination still produce it on $17$ to $33\%$
 of queries.
 
@@ -400,7 +400,7 @@ reading suggests, though still only fairly. The disagreement that remains is
 structural rather than random. The five annotators separate into two stable
 populations, B, C and D averaging $\lenientMean$ against $\strictMean$ for A and
 E; ratings are strongly bimodal, the median across-annotator range on a pair is
-$\medianRange$ points, and \pctSpreadSix\ of pairs span at least six. Averaging produces a target with a standard deviation
+$\medianRange$ points, and \pctSpreadSix\ of pairs span at least $6$. Averaging produces a target with a standard deviation
 of only $\labelSd$, precisely the condition under which a regressor that
 predicts the middle scores well.
 
@@ -433,8 +433,8 @@ best of which reaches only $r=0.482$. Only two scorers beat the ridge, and
 neither is semantic: the prompted judge of
 Section~\ref{sec:judge} and the bare length difference at $r=0.641$, the trivial
 feature the ridge was built around. Whatever a fine-tuned legal metric adds beyond that, a comparison
-without this row does not measure it. This is evidence not that the corpus is
-trivial but about what the \emph{annotation} rewards: score is reduced once per
+without this row does not measure it. This says less about the corpus than about what the
+\emph{annotation} rewards: score is reduced once per
 identified error, the most frequent error type is omission, and omission
 correlates strongly with becoming shorter. A metric can therefore score well by
 detecting deletion, with no representation of legal force, which is the
@@ -467,14 +467,15 @@ $\judgeEdit$ out of ten, a margin of $\judgeMargin$.
 Holding the model fixed and varying only the wording, the margin moves from
 $\promptMarginLo$ under the rubric-faithful prompt to $\promptMarginHi$ under a
 bare instruction that strips the four-type taxonomy, a range of
-$\promptMarginRange$ across $\nPrompts$ wordings of one question, against
+$\promptMarginRange$ across the $\nPrompts$ prompt wordings, against
 $0.002$ for an independent redraw of the same prompt. The mechanism is visible
 in the rubric: score is reduced \emph{once per identified error}, so a clause
 reversal is one incoherence and the scheme caps the penalty near the top of the
 scale. A judge applying the corpus's own rubric faithfully is thereby prevented
 from expressing that an edit destroys the legal meaning.
 Neither capability nor combination closes the gap: a reasoning model under the
-identical rubric reaches margin $\reasonerMargin$ against $\chatKoneMargin$, and
+identical rubric reaches margin $\reasonerMargin$ against the chat model's
+$\chatKoneMargin$, and
 of six rules for merging the judge with bidirectional NLI none beats both
 parents on both axes. One behaviour survives every configuration: substituting
 \emph{peut} for \emph{doit} scores $\asymWeaken$ while the reverse scores
@@ -503,14 +504,14 @@ the two is $\rho=\dissocRhoAll$ ($p=\dissocRhoAllP$), with a $95\%$ bootstrap
 interval of $[\dissocRhoAllLo, \dissocRhoAllHi]$. That interval is an absence of
 resolution rather than a demonstrated null: we are not entitled to say that
 corpus correlation fails to predict legal sensitivity, only that \nDissocAll\
-metrics cannot establish that it does. Restricting to the \nDissoc\ untrained
+scorers cannot establish that it does. Restricting to the \nDissoc\ untrained
 neural baselines moves the estimate to $\rho=\dissocRho$ ($95\%$ CI
 $[\dissocRhoLo, \dissocRhoHi]$), pointing the other way, but that subset
 excludes the length feature and the prompted judge, precisely the two scorers at
 which the orderings part.
 
 The extremes are the durable part of this result and do not depend on a rank
-correlation over thirteen points. The trivial length feature outscores every
+correlation over 13 points. The trivial length feature outscores every
 semantic metric ($r=0.641$) and has the lowest margin of anything we test
 ($\minMargin$), while bidirectional NLI sits mid-table on
 correlation and is the only family that reacts to the edit at all: a metric

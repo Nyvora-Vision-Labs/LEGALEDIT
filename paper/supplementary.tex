@@ -279,9 +279,10 @@ edit.}
 \paragraph{Disagreement-aware objectives buy stability, not accuracy.}
 Table~\ref{tab:models} reports the grid, and the first result is a negative one:
 no training target moves the correlation by more than the scalar baseline's own
-spread across seeds ($\pm0.082$), which is itself smaller than the
-$\mindetect$ gap Section~6.2 of the main paper showed to be resolvable on an
-$\testN$-item split. The differences that survive are in the other columns. The
+spread across seeds ($\pm0.082$), which is itself far smaller than the
+difference of roughly a quarter of a correlation point that an $\testN$-item
+split can resolve (Section~6.2 of the main paper; the smallest correlation
+distinguishable from $r=0.46$ at that size is $\mindetect$). The differences that survive are in the other columns. The
 distributional head is markedly steadier than the scalar head it replaces
 ($\pm0.029$ against $\pm0.082$ over the same five seeds), reaches the best RMSE
 in the table ($1.99$), and roughly doubles the rank correlation ($\rho=0.578$
